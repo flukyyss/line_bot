@@ -70,7 +70,7 @@ def handle_image_message(event):
         event.reply_token, [
             TextSendMessage(text='hello1')
         ])
-    with tempfile.NamedTemporaryFile(dir=static_tmp_path, delete=False) as f :
+    with tempfile.NamedTemporaryFile( delete=False) as f :
         f.write(b'hello')
 
     tempfile_path = f.name
