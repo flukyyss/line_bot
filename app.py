@@ -44,6 +44,8 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
+    f = tempfile.NamedTemporaryFile(dir=os.path.dirname(__file__), delete=False)
+    f.write(b'hello')
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -86,6 +88,7 @@ def handle_image_message(event):
 
 
 if __name__ == '__main__':
+    make_static_tmp_dir()
     arg_parser = ArgumentParser(
         usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
     )
