@@ -68,10 +68,12 @@ def handle_text_message(event):
 def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
+    with open('/static/tmp/content.jpg', 'wb') as f:
+         for chunk in message_content.iter_content():
+             f.write(chunk)
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text=message_content.iter_content()[0]),
-                            TextSendMessage(text=message_content.iter_content()[1])
+            TextSendMessage(text=f.name)
         ]
     )
 
