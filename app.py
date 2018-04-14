@@ -58,7 +58,7 @@ def handle_text_message(event):
     print('hello')
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='Test.')
+            TextSendMessage(text=static_tmp_path)
         ]
     )
 
