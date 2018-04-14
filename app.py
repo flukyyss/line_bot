@@ -44,8 +44,6 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-    f = tempfile.NamedTemporaryFile(dir=os.path.dirname(__file__), delete=False)
-    f.write(b'hello')
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -63,16 +61,16 @@ def handle_text_message(event):
     )
 
 
-
-
-
-
 @handler.add(MessageEvent, message = ImageMessage)
 def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
 
-    f = tempfile.NamedTemporaryFile(dir=os.path.dirname(__file__), delete=False)
+    line_bot_api.reply_message(
+        event.reply_token, [
+            TextSendMessage(text='hello1')
+        ])
+    f = tempfile.NamedTemporaryFile(dir=static_tmp_path, delete=False)
     f.write(b'hello')
 
     tempfile_path = f.name
@@ -82,7 +80,7 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='hello'),
+            TextSendMessage(text='hello2'),
             TextSendMessage(text=tempfile_path)
         ])
 
