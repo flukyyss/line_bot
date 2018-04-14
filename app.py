@@ -66,15 +66,17 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-
+    count=0
     message_content = line_bot_api.get_message_content(event.message.id)
     try:
         with open(r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\content.jpg', 'wb') as f:
             for chunk in message_content.iter_content():
+                count+=1
                 f.write(chunk)
         line_bot_api.reply_message(
              event.reply_token, [
-                TextSendMessage(text=f.name)
+                TextSendMessage(text=f.name),
+                TextSendMessage(text=count)
             ])
     except FileNotFoundError as e:
         line_bot_api.reply_message(
