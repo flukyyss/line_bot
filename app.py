@@ -74,7 +74,7 @@ def handle_image_message(event):
         line_bot_api.reply_message(
              event.reply_token, [
                 TextSendMessage(text=f.name),
-                TextSendMessage(text=str(message_content.content))
+                TextSendMessage(text=message_content.content_type)
             ])
         f.close()
     except FileNotFoundError as e:
