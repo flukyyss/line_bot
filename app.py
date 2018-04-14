@@ -69,10 +69,15 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='hellox')
+            TextSendMessage(text='image!')
         ])
-    with tempfile.NamedTemporaryFile(dir = static_tmp_path, delete=False) as f :
-        f.write(b'hello')
+    try:
+        with tempfile.NamedTemporaryFile(dir = static_tmp_path, delete=False) as f :
+            f.write(b'hello')
+        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found')])
+    except FileNotFoundError as e:
+        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='ERROR')])
+
 
     tempfile_path = f.name
     #os.rename(tempfile_path,dist_path)
