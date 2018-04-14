@@ -67,14 +67,7 @@ def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
 
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text='image!')
-        ])
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text='File found')
-        ])
+
     try:
         with tempfile.NamedTemporaryFile(dir=static_tmp_path, delete=False) as f:
             f.write(b'hello')
@@ -85,6 +78,7 @@ def handle_image_message(event):
 
     tempfile_path = f.name
     #os.rename(tempfile_path,dist_path)
+
 
 
 
