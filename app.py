@@ -69,7 +69,7 @@ def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
     try:
-        with open('/static/tmp/content.jpg', 'wb') as f:
+        with open(r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\content.jpg', 'wb') as f:
             for chunk in message_content.iter_content():
                 f.write(chunk)
         line_bot_api.reply_message(
