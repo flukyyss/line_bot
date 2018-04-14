@@ -68,14 +68,19 @@ def handle_text_message(event):
 def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
-    with open('/static/tmp/content.jpg', 'wb') as f:
-         for chunk in message_content.iter_content():
-             f.write(chunk)
+    try:
+        with open('/static/tmp/content.jpg', 'wb') as f:
+            for chunk in message_content.iter_content():
+                f.write(chunk)
+        line_bot_api.reply_message(
+             event.reply_token, [
+                TextSendMessage(text=f.name)
+            ])
+    except: FileNotFoundError as e:
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text=f.name)
-        ]
-    )
+            TextSendMessage(text='ERROR')
+        ])
 
 if __name__ == '__main__':
     make_static_tmp_dir()
