@@ -69,7 +69,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
 
     try:
-        with tempfile.NamedTemporaryFile(dir=os.path.dirname(__file__),prefix='jpg-',delete=False) as f:
+        with tempfile.NamedTemporaryFile(dir=static_tmp_path,prefix='jpg-',delete=False) as f:
             for chunk in message_content.iter_content():
                 f.write(chunk)
         line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found'),TextSendMessage(text=f.name)])
