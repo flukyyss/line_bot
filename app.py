@@ -71,8 +71,9 @@ def handle_image_message(event):
         event.reply_token, [
             TextSendMessage(text='image!')
         ])
+    line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found')])
     try:
-        with tempfile.NamedTemporaryFile(dir = static_tmp_path, delete=False) as f :
+        with tempfile.NamedTemporaryFile(dir=static_tmp_path, delete=False) as f:
             f.write(b'hello')
         line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found')])
     except:
