@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
 import sys
@@ -58,7 +58,7 @@ def handle_text_message(event):
     print('hello')
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text=static_tmp_path)
+            TextSendMessage(text=event.message.text)
         ]
     )
 
@@ -67,32 +67,11 @@ def handle_text_message(event):
 def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
-
-    try:
-        with tempfile.NamedTemporaryFile(dir=static_tmp_path, prefix='jpg-', delete=False) as f:
-            for chunk in message_content.iter_content():
-                f.write(chunk)
-        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found'),TextSendMessage(text=f.name)])
-    except FileNotFoundError:
-        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='ERROR')])
-
-
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='hello2')
-        ])
-    tempfile_path = f.name
-    #os.rename(tempfile_path,dist_path)
-
-
-
-
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text='hello2'),
-            TextSendMessage(text=tempfile_path)
-        ])
-
+            TextSendMessage(text=message_content)
+        ]
+    )
 
 if __name__ == '__main__':
     make_static_tmp_dir()
