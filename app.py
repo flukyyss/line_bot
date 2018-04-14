@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from flask import Flask, request, abort
 import os
 import sys
@@ -68,9 +69,9 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='hello1')
+            TextSendMessage(text='hellox')
         ])
-    with tempfile.NamedTemporaryFile( delete=False) as f :
+    with tempfile.NamedTemporaryFile(dir = static_tmp_path, delete=False) as f :
         f.write(b'hello')
 
     tempfile_path = f.name
