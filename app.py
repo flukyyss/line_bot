@@ -55,6 +55,7 @@ def callback():
 
 @handler.add(MessageEvent, message = TextMessage)
 def handle_text_message(event):
+    print('hello')
     line_bot_api.reply_message(
         event.reply_token, [
             TextSendMessage(text='Test.')
@@ -67,9 +68,14 @@ def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
 
-    with open(r'C:\Users\fluky\Desktop\temp.txt','wb') as f:
-        for chunk in message_content.iter_content():
-            f.write(chunk)
+    try:
+        with tempfile.NamedTemporaryFile(dir=os.path.dirname(__file__),prefix='jpg-',delete=False) as f:
+            for chunk in message_content.iter_content():
+                f.write(chunk)
+        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='File found'),TextSendMessage(text=f.name)])
+    except FileNotFoundError:
+        line_bot_api.reply_message(event.reply_token, [TextSendMessage(text='ERROR')])
+
 
     line_bot_api.reply_message(
         event.reply_token, [
