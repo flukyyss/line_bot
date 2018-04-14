@@ -67,7 +67,7 @@ def handle_image_message(event):
 
     message_content = line_bot_api.get_message_content(event.message.id)
 
-    with open('C:\Users\fluky\Desktop\temp.txt','wb') as f:
+    with open(r'C:\Users\fluky\Desktop\temp.txt','wb') as f:
         for chunk in message_content.iter_content():
             f.write(chunk)
 
