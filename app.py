@@ -2,7 +2,7 @@ from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
 import sys
-from tempfile import  mktemp
+from tempfile import mktemp
 
 import errno
 from argparse import ArgumentParser
@@ -24,6 +24,8 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'tVwzfXjin25UzjsJKz75TenY1BshnLWgIDbxyKZp3G1y'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
+
+img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
 def make_static_tmp_dir():
     try:
         os.makedirs(static_tmp_path)
@@ -36,19 +38,12 @@ def make_static_tmp_dir():
 app = Flask(__name__)
 @app.route ('/')
 def index():
-    print('test1',file=sys.stderr)
     return "Hello World!"
 
 
 @app.route('/callback', methods=['POST'])
 def callback():
     print('callback')
-    img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
-    f = open(img_tmp, 'w')
-    f.write('hello')
-    print('success')
-    print(f.name)
-    f.close()
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -78,7 +73,6 @@ def handle_image_message(event):
     print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
-    img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop',prefix='img-',suffix='.jpg')
     f = open(img_tmp,'wb')
     for chunk in message_content.iter_content():
         f.write(chunk)
