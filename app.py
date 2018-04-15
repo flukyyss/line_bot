@@ -26,6 +26,8 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
+f = open(img_tmp,'w')
+f.write('hello')
 def make_static_tmp_dir():
     try:
         os.makedirs(static_tmp_path)
