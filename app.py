@@ -76,7 +76,7 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             count+=1
             f.write(chunk)
-        print(f.read()
+        print(f.read())
         print('success')
         print(f.name)
 
