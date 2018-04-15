@@ -2,7 +2,7 @@ from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
 import sys
-from tempfile import NamedTemporaryFile
+from tempfile import  mkstemp
 
 import errno
 from argparse import ArgumentParser
@@ -72,7 +72,7 @@ def handle_image_message(event):
     print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
-    with NamedTemporaryFile(delete=False) as f:
+    with mkstemp(dir=static_tmp_path,prefix='img-') as f:
         for chunk in message_content.iter_content():
             count+=1
             f.write(chunk)
