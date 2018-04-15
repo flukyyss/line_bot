@@ -2,6 +2,8 @@ from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
 import sys
+from tempfile import NamedTemporaryFile
+
 import errno
 from argparse import ArgumentParser
 from linebot import (
@@ -70,9 +72,8 @@ def handle_image_message(event):
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
     try:
-        with open(r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\content.jpg', 'wb') as f:
+        with NamedTemporaryFile(static_tmp_path, 'wb',delete=False) as f:
             for chunk in message_content.iter_content():
-                print(chunk)
                 count+=1
                 f.write(chunk)
         f.close()
