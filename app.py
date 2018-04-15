@@ -1,7 +1,7 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
-from tempfile import mktemp
+from tempfile import mktemp, NamedTemporaryFile
 
 import errno
 from argparse import ArgumentParser
@@ -77,8 +77,7 @@ def handle_image_message(event):
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
     message_content = line_bot_api.get_message_content(event.message.id)
-    img_tmp = mktemp(dir=os.path.dirname(__file__), prefix='img-', suffix='.jpg')
-    f = open(img_tmp, 'wb')
+    f = NamedTemporaryFile(mode='wb', dir=static_tmp_path,)
     for chunk in message_content.iter_content():
         f.write(chunk)
     print('success1')
