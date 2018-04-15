@@ -25,11 +25,6 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-def create_file():
-    img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
-    f = open(img_tmp, 'w')
-    f.write('hello')
-    f.close()
 
 def make_static_tmp_dir():
     try:
@@ -40,8 +35,11 @@ def make_static_tmp_dir():
         else:
             raise
 
+
 app = Flask(__name__)
-@app.route ('/')
+
+
+@app.route('/')
 def index():
     return "Hello World!"
 
@@ -63,7 +61,8 @@ def callback():
 
     return 'OK'
 
-@handler.add(MessageEvent, message = TextMessage)
+
+@handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
     line_bot_api.reply_message(
@@ -76,12 +75,19 @@ def handle_text_message(event):
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     print('image')
+    print('current path is '+os.path.dirname(__file__))
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
+    img_tmp = mktemp(dir=os.path.dirname(__file__), prefix='img-', suffix='.jpg')
+    f = open(img_tmp,'wb')
+    for chunk in message_content.iter_content():
+        f.write(chunk)
+    print('success')
+    print(f.name)
+    f.close()
 
 
 if __name__ == '__main__':
-    create_file()
     make_static_tmp_dir()
     arg_parser = ArgumentParser(
         usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
