@@ -43,6 +43,12 @@ def index():
 @app.route('/callback', methods=['POST'])
 def callback():
     print('callback')
+    img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
+    f = open(img_tmp, 'w')
+    f.write('hello')
+    print('success')
+    print(f.name)
+    f.close()
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
