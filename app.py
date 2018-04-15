@@ -1,8 +1,8 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
+import sys
 import errno
-import tempfile
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
@@ -31,15 +31,16 @@ def make_static_tmp_dir():
         else:
             raise
 
-
 app = Flask(__name__)
 @app.route ('/')
 def index():
-  return "Hello World!"
+    print('test1',file=sys.stderr)
+    return "Hello World!"
 
 
 @app.route('/callback', methods=['POST'])
 def callback():
+    print('test2')
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -66,11 +67,12 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-    count=0
+    count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
     try:
         with open(r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\content.jpg', 'wb') as f:
             for chunk in message_content.iter_content():
+                print(chunk)
                 count+=1
                 f.write(chunk)
         line_bot_api.reply_message(
