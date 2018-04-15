@@ -80,10 +80,7 @@ def handle_image_message(event):
         print('success')
         print(f.name)
     except FileNotFoundError as e:
-        line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text='ERROR')
-        ])
+        print('fail')
 
 if __name__ == '__main__':
     make_static_tmp_dir()
