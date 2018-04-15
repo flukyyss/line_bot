@@ -42,7 +42,7 @@ def index():
 
 @app.route('/callback', methods=['POST'])
 def callback():
-    print('test2')
+    print('callback')
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -59,7 +59,7 @@ def callback():
 
 @handler.add(MessageEvent, message = TextMessage)
 def handle_text_message(event):
-    print('hello')
+    print('text')
     line_bot_api.reply_message(
         event.reply_token, [
             TextSendMessage(text=event.message.text)
@@ -69,6 +69,7 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
+    print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
     try:
