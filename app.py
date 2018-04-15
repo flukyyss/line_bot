@@ -25,10 +25,12 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
-f = open(img_tmp,'w')
-f.write('hello')
-f.close()
+def create_file():
+    img_tmp = mktemp(dir=r'C:\Users\fluky\Desktop', prefix='img-', suffix='.jpg')
+    f = open(img_tmp, 'w')
+    f.write('hello')
+    f.close()
+
 def make_static_tmp_dir():
     try:
         os.makedirs(static_tmp_path)
@@ -76,15 +78,10 @@ def handle_image_message(event):
     print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
-    f = open(img_tmp,'wb')
-    for chunk in message_content.iter_content():
-        f.write(chunk)
-    print('success')
-    print(f.name)
-    f.close()
 
 
 if __name__ == '__main__':
+    create_file()
     make_static_tmp_dir()
     arg_parser = ArgumentParser(
         usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
