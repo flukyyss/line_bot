@@ -1,7 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
-import sys
 from tempfile import mktemp
 
 import errno
@@ -77,13 +76,12 @@ def handle_image_message(event):
     print('image')
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
-    count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
     img_tmp = mktemp(dir=os.path.dirname(__file__), prefix='img-', suffix='.jpg')
-    f = open(img_tmp,'wb')
+    f = open(img_tmp, 'wb')
     for chunk in message_content.iter_content():
         f.write(chunk)
-    print('success')
+    print('success1')
     print(f.name)
     f.close()
 
