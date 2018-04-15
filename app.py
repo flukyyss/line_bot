@@ -72,15 +72,14 @@ def handle_image_message(event):
     print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
-    try:
         with NamedTemporaryFile(dir=static_tmp_path,delete=False) as f:
             for chunk in message_content.iter_content():
                 count+=1
                 f.write(chunk)
+            print f.read(10)
         print('success')
         print(f.name)
-    except FileNotFoundError as e:
-        print('fail')
+
 
 if __name__ == '__main__':
     make_static_tmp_dir()
