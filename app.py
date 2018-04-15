@@ -76,6 +76,7 @@ def handle_text_message(event):
 def handle_image_message(event):
     print('image')
     print('current path is '+os.path.dirname(__file__))
+    print(__file__)
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
     img_tmp = mktemp(dir=os.path.dirname(__file__), prefix='img-', suffix='.jpg')
