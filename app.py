@@ -72,12 +72,14 @@ def handle_image_message(event):
     print('image')
     count = 0
     message_content = line_bot_api.get_message_content(event.message.id)
-    f =  mkstemp(dir=static_tmp_path,prefix='img-')
+    img_tmp = mkstemp(dir=static_tmp_path,prefix='img-')
+    f = open(img_tmp,'wb')
     for chunk in message_content.iter_content():
         f.write(chunk)
     print(f.read())
     print('success')
     print(f.name)
+    f.close()
 
 
 if __name__ == '__main__':
