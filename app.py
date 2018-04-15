@@ -77,7 +77,7 @@ def handle_image_message(event):
             for chunk in message_content.iter_content():
                 count+=1
                 f.write(chunk)
-        f.close()
+        print('success')
     except FileNotFoundError as e:
         line_bot_api.reply_message(
         event.reply_token, [
