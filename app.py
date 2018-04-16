@@ -24,7 +24,6 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-
 def make_static_tmp_dir():
     try:
         os.makedirs(static_tmp_path)
@@ -64,7 +63,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
-    f = open(r"C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\info.txt","w+")
+    f = open(file=static_tmp_path+'info.txt',mode="w+")
     f.write(event.message.text)
     f.close()
     line_bot_api.reply_message(
