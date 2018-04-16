@@ -79,6 +79,7 @@ def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
     f = NamedTemporaryFile(mode='wb', dir=static_tmp_path,)
     for chunk in message_content.iter_content():
+        print(chunk)
         f.write(chunk)
     print('success1')
     print(f.name)
