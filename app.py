@@ -1,7 +1,7 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os
-from tempfile import mktemp, NamedTemporaryFile
+from tempfile import NamedTemporaryFile
 
 import errno
 from argparse import ArgumentParser
@@ -64,6 +64,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
+    f = open(r"C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\info.txt","w+")
+    f.write(event.message.text)
+    f.close()
     line_bot_api.reply_message(
         event.reply_token, [
             TextSendMessage(text=event.message.text)
