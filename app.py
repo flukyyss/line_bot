@@ -66,6 +66,8 @@ def handle_text_message(event):
     f = open(file=static_tmp_path+'/info.txt',mode="w")
     f.write('hi')
     f.close()
+    t=NamedTemporaryFile(dir=static_tmp_path,delete=False)
+    print(t.name)
     line_bot_api.reply_message(
         event.reply_token, [
             TextSendMessage(text=event.message.text)
