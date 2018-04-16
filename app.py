@@ -63,7 +63,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
-    f = open(file=r'C:\Users\fluky\Desktop\info.txt',mode="w+")
+    f = open(file=r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp\info.txt',mode="r")
     f.write(event.message.text)
     print(f.read())
     f.close()
