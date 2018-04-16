@@ -77,7 +77,7 @@ def handle_image_message(event):
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
     message_content = line_bot_api.get_message_content(event.message.id)
-    f = NamedTemporaryFile(mode='wb+', dir=static_tmp_path)
+    f = NamedTemporaryFile(mode='wb+', dir=static_tmp_path,delete=False)
     for chunk in message_content.iter_content():
         f.write(chunk)
     print(f.read())
