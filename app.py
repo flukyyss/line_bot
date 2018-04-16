@@ -42,7 +42,7 @@ def index():
     return "Hello World!"
 
 
-@app.route('/callback', methods=['POST'])
+@app.route('/callback', methods=['POST','GET'])
 def callback():
     print('callback')
     # get X-Line-Signature header value
