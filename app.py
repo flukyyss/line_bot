@@ -64,7 +64,7 @@ def callback():
 def handle_text_message(event):
     print('text')
     f = open(file=static_tmp_path+'/info.txt',mode="r")
-    f.write(event.message.text)
+    #f.write(event.message.text)
     print(f.read())
     f.close()
     line_bot_api.reply_message(
