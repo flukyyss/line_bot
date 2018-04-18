@@ -102,7 +102,7 @@ def handle_image_message(event):
         c.perform()
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text=c.getinfo(pycurl.EFFECTIVE_URL))
+                TextSendMessage(text=c.getinfo(pycurl.EFFECTIVE_URL)+'/'+dist_name)
             ]
         )
         c.close()
