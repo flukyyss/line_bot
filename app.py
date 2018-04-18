@@ -67,13 +67,8 @@ def callback():
 def handle_text_message(event):
     print('text')
     print(static_tmp_path)
-    try:
-        with open(file=static_tmp_path+'/info.txt', mode="w") as ft:
-            ft.write("hello")
-    except FileNotFoundError as e:
-        print('not found')
+
     with NamedTemporaryFile(dir=static_tmp_path, delete=False) as ft:
-        ft.write("GGGG")
         print(ft.name)
         line_bot_api.reply_message(
             event.reply_token, [
@@ -88,7 +83,14 @@ def handle_image_message(event):
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
     message_content = line_bot_api.get_message_content(event.message.id)
-    f = NamedTemporaryFile(mode='w+', dir=static_tmp_path,delete=False)
+    with NamedTemporaryFile(dir=static_tmp_path, delete=False) as f:
+        for chunk in message_content.iter_content():
+            f.write(chunk)
+        tempfile_path = f.name
+
+        dist_path = tempfile_path + '.' + 'jpg'
+        dist_name = os.path.basename(dist_path)
+        os.rename(tempfile_path, dist_path)
     f.write('hello')
     print(f.read())
     print('success1')
