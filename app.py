@@ -63,8 +63,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
-    with open(file=static_tmp_path+'/info.txt',mode="r") as ft:
-        print(ft.read())
+    with open(file=static_tmp_path+'/info.txt',mode="w") as ft:
+        ft.write("hello")
         ft.close()
     with NamedTemporaryFile(dir=static_tmp_path,delete=False) as ft:
         print(ft.name)
