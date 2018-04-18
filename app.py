@@ -92,7 +92,7 @@ def handle_image_message(event):
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
-        c.setopt(c.URL, 'http://transfer.sh/')
+        c.setopt(c.URL, 'https://transfer.sh/')
         c.setopt(c.HTTPPOST, [
             ('fileupload',(
                 c.FORM_FILENAME, dist_path,
