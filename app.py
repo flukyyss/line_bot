@@ -73,6 +73,7 @@ def handle_text_message(event):
     except FileNotFoundError as e:
         print('not found')
     with NamedTemporaryFile(dir=static_tmp_path, delete=False) as ft:
+        ft.write("GGGG")
         print(ft.name)
         line_bot_api.reply_message(
             event.reply_token, [
