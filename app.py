@@ -84,7 +84,7 @@ def handle_image_message(event):
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
     message_content = line_bot_api.get_message_content(event.message.id)
-    with NamedTemporaryFile(dir=static_tmp_path, delete=False) as f:
+    with NamedTemporaryFile(mode='wb+', dir=static_tmp_path, delete=False) as f:
         for chunk in message_content.iter_content():
             f.write(chunk)
         tempfile_path = f.name
@@ -94,7 +94,7 @@ def handle_image_message(event):
         c = pycurl.Curl()
         c.setopt(c.URL, "https://transfer.sh/")
         c.setopt(c.UPLOAD, 1)
-        c.setopt(c.READFUNCTION, f)
+        c.setopt(c.READFUNCTION, f.read())
         filesize = os.path.getsize(dist_path)
         c.setopt(c.INFILESIZE, filesize)
         c.perform()
