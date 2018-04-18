@@ -63,16 +63,16 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
-    f = open(file=static_tmp_path+'/info.txt',mode="w")
-    f.write('hi')
-    f.close()
-    t=NamedTemporaryFile(dir=static_tmp_path,delete=False)
-    print(t.name)
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text=event.message.text)
-        ]
-    )
+    with open(file=static_tmp_path+'/info.txt',mode="w+") as ft:
+        print(ft.read())
+        ft.close()
+    with NamedTemporaryFile(dir=static_tmp_path,delete=False) as ft:
+        print(ft.name)
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text=event.message.text)
+            ]
+        )
 
 
 @handler.add(MessageEvent, message=ImageMessage)
