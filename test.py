@@ -1,4 +1,4 @@
 from tempfile import NamedTemporaryFile
 
-f = NamedTemporaryFile(prefix='test-',mode='r', dir=r'C:\Users\fluky\Desktop',delete=False)
-print(f.name)
+with open(file=r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp/info.txt',mode="w") as ft:
+    ft.write("hello")

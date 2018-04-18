@@ -42,7 +42,7 @@ def index():
     return "Hello World!"
 
 
-@app.route('/callback', methods=['POST','GET'])
+@app.route('/callback', methods=['POST'])
 def callback():
     print('callback')
     # get X-Line-Signature header value
@@ -50,6 +50,7 @@ def callback():
 
     # get request body as text
     body = request.get_data(as_text=True)
+    print(body)
     app.logger.info("Request body: " + body)
     # handle webhook body
     try:
