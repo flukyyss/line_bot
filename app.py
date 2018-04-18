@@ -66,6 +66,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
+    print(static_tmp_path)
     try:
         with open(file=static_tmp_path+'/info.txt', mode="w") as ft:
             ft.write("hello")
