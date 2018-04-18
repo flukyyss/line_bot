@@ -4,6 +4,7 @@ import os, stat
 from tempfile import NamedTemporaryFile
 
 import errno
+import pycurl
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
@@ -78,6 +79,7 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
+
     print('image')
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
@@ -86,10 +88,24 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             f.write(chunk)
         tempfile_path = f.name
-
         dist_path = tempfile_path + '.' + 'jpg'
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
+        c = pycurl.Curl()
+        c.setopt(c.URL, 'http://transfer.sh/')
+        c.setopt(c.HTTPPOST, [
+            ('fileupload',(
+                c.FORM_FILENAME, dist_path,
+            )),
+        ])
+        c.perform()
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text=c.URL)
+            ]
+        )
+        c.close()
+
     print(f.name)
     f.close()
 
