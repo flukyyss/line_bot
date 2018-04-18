@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
-import os, stat
+import os, stat, sys
 from tempfile import NamedTemporaryFile
 
 import errno
@@ -79,7 +79,7 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-
+    url = sys.argv[1]
     print('image')
     print('current path is '+os.path.dirname(__file__))
     print(__file__)
@@ -100,7 +100,7 @@ def handle_image_message(event):
         c.perform()
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text=c.getinfo(pycurl.EFFECTIVE_URL)+dist_name)
+                TextSendMessage(text=url)
             ]
         )
         c.close()
