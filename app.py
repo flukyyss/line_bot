@@ -96,8 +96,13 @@ def handle_image_message(event):
 
 if __name__ == '__main__':
     make_static_tmp_dir()
+    arg_parser = ArgumentParser(
+        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
+    )
+    arg_parser.add_argument('-p', '--port', type=int, default=8000, help='port')
+    arg_parser.add_argument('-d', '--debug', default=False, help='debug')
+    options = arg_parser.parse_args()
 
-
-    app.run(debug=True)
+    app.run(debug=options.debug, port=options.port)
 
 print('y')
