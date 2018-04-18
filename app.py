@@ -63,9 +63,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     print('text')
-    with open(file=static_tmp_path+'/info.txt',mode="w") as ft:
-        ft.write("hello")
-        ft.close()
+    try:
+        with open(file=static_tmp_path+'/info.txt',mode="w") as ft:
+            ft.write("hello")
+            print('can print')
+    except FileNotFoundError as e:
+        print('not found')
     with NamedTemporaryFile(dir=static_tmp_path,delete=False) as ft:
         print(ft.name)
         line_bot_api.reply_message(
