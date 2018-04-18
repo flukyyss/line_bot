@@ -92,13 +92,11 @@ def handle_image_message(event):
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
-        c.setopt(c.POST, 1)
         c.setopt(c.URL, "https://transfer.sh/")
-        c.setopt(c.HTTPPOST, [
-            (dist_name,(
-                c.FORM_FILE, dist_path,
-            ))
-        ])
+        c.setopt(c.UPLOAD, 1)
+        c.setopt(c.READFUNCTION, dist_path)
+        filesize = os.path.getsize(dist_path)
+        c.setopt(c.INFILESIZE, filesize)
         c.perform()
         line_bot_api.reply_message(
             event.reply_token, [
