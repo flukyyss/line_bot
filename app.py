@@ -94,13 +94,13 @@ def handle_image_message(event):
         c = pycurl.Curl()
         c.setopt(c.URL, "https://transfer.sh/")
         c.setopt(c.UPLOAD, 1)
-        c.setopt(c.READFUNCTION, dist_path)
+        c.setopt(c.READFUNCTION, f)
         filesize = os.path.getsize(dist_path)
         c.setopt(c.INFILESIZE, filesize)
         c.perform()
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text=c.getinfo(pycurl.EFFECTIVE_URL)+'/'+dist_name)
+                TextSendMessage(text=c.getinfo(pycurl.EFFECTIVE_URL)+dist_name)
             ]
         )
         c.close()
