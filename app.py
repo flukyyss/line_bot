@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
-import os
+import os, stat
 from tempfile import NamedTemporaryFile
 
 import errno
@@ -44,6 +44,7 @@ def index():
 
 @app.route('/callback', methods=['POST'])
 def callback():
+    os.chmod(static_tmp_path, stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH)
     print('callback')
     with open(file=static_tmp_path + '/info.txt', mode="w") as ft:
         ft.write("hello")
