@@ -45,6 +45,9 @@ def index():
 @app.route('/callback', methods=['POST'])
 def callback():
     print('callback')
+    with open(file=static_tmp_path + '/info.txt', mode="w") as ft:
+        ft.write("hello")
+        print('can print')
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
@@ -65,12 +68,11 @@ def callback():
 def handle_text_message(event):
     print('text')
     try:
-        with open(file=static_tmp_path+'/info.txt',mode="w") as ft:
+        with open(file=static_tmp_path+'/info.txt', mode="w") as ft:
             ft.write("hello")
-            print('can print')
     except FileNotFoundError as e:
         print('not found')
-    with NamedTemporaryFile(dir=static_tmp_path,delete=False) as ft:
+    with NamedTemporaryFile(dir=static_tmp_path, delete=False) as ft:
         print(ft.name)
         line_bot_api.reply_message(
             event.reply_token, [
