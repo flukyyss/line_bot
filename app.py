@@ -44,7 +44,7 @@ def index():
 
 @app.route('/callback', methods=['POST'])
 def callback():
-    os.chmod(static_tmp_path, stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+    os.chmod(static_tmp_path + '/info.txt', stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH | stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     print('callback')
     with open(file=static_tmp_path + '/info.txt', mode="w") as ft:
         ft.write("hello")
