@@ -94,7 +94,7 @@ def handle_image_message(event):
         c = pycurl.Curl()
         c.setopt(c.URL, "https://transfer.sh/")
         c.setopt(c.UPLOAD, 1)
-        c.setopt(c.READFUNCTION, f.read())
+        c.setopt(c.READFUNCTION, f.read_callback)
         filesize = os.path.getsize(dist_path)
         c.setopt(c.INFILESIZE, filesize)
         c.perform()
