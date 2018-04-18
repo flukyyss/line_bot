@@ -23,7 +23,6 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'tVwzfXjin25UzjsJKz75TenY1BshnLWgIDbxyKZp3G1y'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
-print('x')
 
 def make_static_tmp_dir():
     try:
@@ -91,9 +90,6 @@ def handle_image_message(event):
         dist_path = tempfile_path + '.' + 'jpg'
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
-    f.write('hello')
-    print(f.read())
-    print('success1')
     print(f.name)
     f.close()
 
@@ -109,4 +105,3 @@ if __name__ == '__main__':
 
     app.run(debug=options.debug, port=options.port)
 
-print('y')
