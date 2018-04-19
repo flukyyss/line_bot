@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
-import os, stat, urllib
+import os, stat, urllib3
 from tempfile import NamedTemporaryFile
 
 import errno
@@ -88,7 +88,9 @@ def handle_image_message(event):
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
         print ("downloading")
-        urllib.urlretrieve(dist_path, "first.jpg")
+        http = urllib3.PoolManager()
+        r = http.request('GET',tempfile_path)
+        print(r.data)
         print ("finished")
 
 
