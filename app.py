@@ -111,7 +111,7 @@ def handle_image_message(event):
             f.write(chunk)
         tempfile_path = f.name
         #dist_path = tempfile_path + '.' + 'jpg'
-        dist_path = '/app/static/tmp/freepik.jpg'
+        dist_path = r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp/freepik.jpg'
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
