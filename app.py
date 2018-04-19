@@ -110,7 +110,8 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             f.write(chunk)
         tempfile_path = f.name
-        dist_path = tempfile_path + '.' + 'jpg'
+        #dist_path = tempfile_path + '.' + 'jpg'
+        dist_path = '/app/static/tmp/freepik.jpg'
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
