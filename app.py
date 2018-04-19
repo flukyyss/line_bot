@@ -97,7 +97,7 @@ def handle_image_message(event):
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
-        c.setopt(c.HTTPHEADER, [headers,])
+        c.setopt(c.HTTPHEADER, ['Content-Type: application/json; charset=UTF-8', 'Authorization: Authorization'])
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
                 c.FORM_FILE, dist_path
