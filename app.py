@@ -100,7 +100,7 @@ def handle_image_message(event):
         c.setopt(c.HTTPHEADER, ['Content-Type: application/json; charset=UTF-8', 'Authorization:' + Authorization])
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
-                c.FORM_FILE, f
+                c.FORM_FILE, f.open()
             )),
         ])
         filesize = os.path.getsize(dist_path)
