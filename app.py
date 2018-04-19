@@ -77,13 +77,20 @@ def handle_text_message(event):
     print('text')
     print(static_tmp_path)
 
-    with NamedTemporaryFile(dir=static_tmp_path, delete=False) as ft:
-        print(ft.name)
+    if(event.message.text == 'admin'):
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text=event.message.text)
+                TextSendMessage(text='Logging in as admin..'),
+                TextSendMessage(text='Please enter password')
             ]
         )
+    elif(event.message.text == 'password123'):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Please upload image')
+            ]
+        )
+
 
 
 @handler.add(MessageEvent, message=ImageMessage)
