@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
-import os, stat, sys
+import os, stat, urllib
 from tempfile import NamedTemporaryFile
 
 import errno
@@ -79,10 +79,6 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-    url = sys.argv[1]
-    print('image')
-    print('current path is '+os.path.dirname(__file__))
-    print(__file__)
     message_content = line_bot_api.get_message_content(event.message.id)
     with NamedTemporaryFile(mode='wb+', dir=static_tmp_path, delete=False) as f:
         for chunk in message_content.iter_content():
@@ -91,19 +87,10 @@ def handle_image_message(event):
         dist_path = tempfile_path + '.' + 'jpg'
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
-        c = pycurl.Curl()
-        c.setopt(c.URL, "https://transfer.sh/")
-        c.setopt(c.UPLOAD, 1)
-        c.setopt(c.READFUNCTION, f.read)
-        filesize = os.path.getsize(dist_path)
-        c.setopt(c.INFILESIZE, filesize)
-        c.perform()
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text=url)
-            ]
-        )
-        c.close()
+        print ("downloading")
+        urllib.urlretrieve(dist_path, "first.jpg")
+        print ("finished")
+
 
     print(f.name)
     f.close()
