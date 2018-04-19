@@ -110,12 +110,11 @@ def handle_image_message(event):
         for chunk in message_content.iter_content():
             f.write(chunk)
         tempfile_path = f.name
-        #dist_path = tempfile_path + '.' + 'jpg'
-        dist_path = r'C:\Users\fluky\Desktop\New folder (2)\New folder\static\tmp/freepik.jpg'
+        dist_path = tempfile_path + '.' + 'jpg'
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
-        c.setopt(c.HTTPHEADER, ['Content-Type: application/json; charset=UTF-8', 'Authorization:' + Authorization])
+        c.setopt(c.HTTPHEADER, ['Content-Type: image/jpg; charset=UTF-8', 'Authorization:' + Authorization])
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
                 c.FORM_FILE, json.dumps(str(dist_path))
