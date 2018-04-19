@@ -1,6 +1,6 @@
 from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
-import os, stat, urllib3
+import os, stat, urllib
 from tempfile import NamedTemporaryFile
 
 import errno
@@ -87,12 +87,22 @@ def handle_image_message(event):
         dist_path = tempfile_path + '.' + 'jpg'
         dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
-        print ("downloading")
-        http = urllib3.PoolManager()
-        r = http.request('GET',tempfile_path)
-        print(r.data)
-        print ("finished")
-
+        c = pycurl.Curl()
+        c.setopt(c.URL, LINE_API)
+        c.setopt(c.HTTPPOST,[
+            ('fileupload',(
+                c.FORM_FILE, dist_path
+            )),
+        ])
+        filesize = os.path.getsize(dist_path)
+        c.setopt(c.INFILESIZE, filesize)
+        c.perform()
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Sent back')
+            ]
+        )
+        c.close()
 
     print(f.name)
     f.close()
