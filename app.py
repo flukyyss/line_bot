@@ -2,6 +2,7 @@ from __future__ import unicode_literals, print_function
 from flask import Flask, request, abort
 import os, stat, urllib
 from tempfile import NamedTemporaryFile
+import json
 
 import errno
 import pycurl
@@ -88,7 +89,7 @@ def handle_text_message(event):
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
     message_content = line_bot_api.get_message_content(event.message.id)
-    with NamedTemporaryFile(mode='wb+', dir=static_tmp_path, delete=False) as f:
+    with NamedTemporaryFile(mode='wb+', dir=static_tmp_path,prefix='img-', delete=False) as f:
         for chunk in message_content.iter_content():
             f.write(chunk)
         tempfile_path = f.name
@@ -99,7 +100,7 @@ def handle_image_message(event):
         c.setopt(c.HTTPHEADER, ['Content-Type: application/json; charset=UTF-8', 'Authorization:' + Authorization])
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
-                c.FORM_FILE, dist_path
+                c.FORM_FILE, json.dump(str(dist_path))
             )),
         ])
         filesize = os.path.getsize(dist_path)
