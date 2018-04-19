@@ -23,6 +23,14 @@ line_bot_api = LineBotApi('DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1U'
                           'KDSvZcWI3G9OKgexXggWZRER9ml7RAmTUjElHzAPzBV'
                           'tVwzfXjin25UzjsJKz75TenY1BshnLWgIDbxyKZp3G1y'
                           'higMP08ihMxG6pkr6rfEQdB04t89/1O/w1cDnyilFU=')
+Authorization = 'Bearer DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1UKDSv' \
+                'ZcWI3G9OKgexXggWZRER9ml7RAmTUjElHzAPzBVtVwzfXjin25Uzjs' \
+                'JKz75TenY1BshnLWgIDbxyKZp3G1yhigMP08ihMxG6pkr6rfEQdB04' \
+                't89/1O/w1cDnyilFU='
+headers = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Authorization': Authorization
+  }
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 def make_static_tmp_dir():
@@ -89,6 +97,7 @@ def handle_image_message(event):
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
+        c.setopt(pycurl.HTTPHEADER, headers)
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
                 c.FORM_FILE, dist_path
