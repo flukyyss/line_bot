@@ -93,14 +93,13 @@ def handle_image_message(event):
             f.write(chunk)
         tempfile_path = f.name
         dist_path = tempfile_path + '.' + 'jpg'
-        dist_name = os.path.basename(dist_path)
         os.rename(tempfile_path, dist_path)
         c = pycurl.Curl()
         c.setopt(c.URL, LINE_API)
         c.setopt(c.HTTPHEADER, ['Content-Type: application/json; charset=UTF-8', 'Authorization:' + Authorization])
         c.setopt(c.HTTPPOST,[
             ('fileupload',(
-                c.FORM_FILE, f.open()
+                c.FORM_FILE, dist_path
             )),
         ])
         filesize = os.path.getsize(dist_path)
