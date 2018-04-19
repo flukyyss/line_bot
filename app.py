@@ -87,9 +87,19 @@ def handle_text_message(event):
     elif(event.message.text == 'password123'):
         line_bot_api.reply_message(
             event.reply_token, [
+                TextSendMessage(text='Successfully logged in'),
                 TextSendMessage(text='Please upload image')
             ]
         )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Wrong Password'),
+                TextSendMessage(text='Enter [admin] to re login')
+
+            ]
+        )
+
 
 
 
