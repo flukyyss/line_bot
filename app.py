@@ -113,7 +113,7 @@ def handle_image_message(event):
             TextSendMessage(text='Breast has 620 ml with similarity 59.83 %'),
             ImageSendMessage(original_content_url="https://preview.ibb.co/nR4mgn/pat3.jpg",
                              preview_image_url="https://preview.ibb.co/nR4mgn/pat3.jpg"),
-            TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
+            
 
         ]
     )
