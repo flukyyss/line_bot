@@ -19,3 +19,5 @@ pip==9.0.3
 setuptools==39.0.1
 line-bot-sdk==1.1.0
 pycurl==7.43.0.1
+numpy==1.14.2 
+opencv-python==3.4.0.12
