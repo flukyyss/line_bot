@@ -77,25 +77,23 @@ def handle_text_message(event):
     print('text')
     print(static_tmp_path)
 
-    if(event.message.text == 'admin'):
+    if(event.message.text == 'วิธีการลงทะเบียนออนไลน์'):
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='Logging in as admin..'),
-                TextSendMessage(text='Please enter password')
+                ImageSendMessage(original_content_url="http://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg",
+                                 preview_image_url="http://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg"),
             ]
         )
-    elif(event.message.text == 'password123'):
+    elif(event.message.text == 'เมนู'):
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='Successfully logged in'),
-                TextSendMessage(text='Please upload image')
+                TextSendMessage(text='ท่านสามรถเลือกเมนูจาก Bulletin ด้านล่าง')
             ]
         )
     else:
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='Wrong Password'),
-                TextSendMessage(text='Enter [admin] to re login')
+                TextSendMessage(text='ไม่เข้าใจคำสั่งครับ')
 
             ]
         )
