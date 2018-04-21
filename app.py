@@ -63,11 +63,7 @@ def callback():
     body = request.get_data(as_text=True)
     print(body)
     app.logger.info("Request body: " + body)
-    line_bot_api.reply_message(
-        event.reply_token, [
-            TextSendMessage(text='สวัสดีครับ ขอบคุณที่แอดเป็นเพื่อนนะ คุณสามารถอัพโหลดรูปถ่ายหน้าอกเพื่อวิเคราะห์ความใกล้เคียงกับรูปอื่นๆใน database ในเมนูด้านล่าง สามารถกดส่งรูปถ่ายเพื่ออัพโหลด หรือเลือกเมนูอื่นๆ')
-        ]
-    )
+
     # handle webhook body
     try:
         handler.handle(body, signature)
