@@ -77,11 +77,11 @@ def handle_text_message(event):
     print('text')
     print(static_tmp_path)
 
-    if(event.message.text == 'วิธีการลงทะเบียนออนไลน์'):
+    if(event.message.text == 'ขั้นตอนการลงทะเบียน'):
         line_bot_api.reply_message(
             event.reply_token, [
-                ImageSendMessage(original_content_url="http://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg",
-                                 preview_image_url="http://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg"),
+                ImageSendMessage(original_content_url="https://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg",
+                                 preview_image_url="https://chulalongkornhospital.go.th/hr/row/row/b/images/S_5255540692607.jpg"),
             ]
         )
     elif(event.message.text == 'เมนู'):
