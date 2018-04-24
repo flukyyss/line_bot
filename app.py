@@ -3,7 +3,9 @@ from flask import Flask, request, abort
 import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
-
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
 import errno
 import pycurl
 from argparse import ArgumentParser
@@ -104,6 +106,20 @@ def handle_text_message(event):
                          'เบอร์ฝ่ายมะเร็งวิทยา : 022564100')
             ]
         )
+    elif(event.message.text == 'ลงทะเบียนผู้ป่วย'):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(
+                    text='http://chulalongkornhospital.go.th/hr/row/row/b/row3-th.php')
+            ]
+        )
+    elif(event.message.text == 'คำถามที่พบบ่อย'):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(
+                    text='https://www.chulacancer.net/faq-list.php?gid=62')
+            ]
+        )
     else:
         line_bot_api.reply_message(
             event.reply_token, [
@@ -111,9 +127,6 @@ def handle_text_message(event):
 
             ]
         )
-
-
-
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
