@@ -88,7 +88,21 @@ def handle_text_message(event):
     elif(event.message.text == 'เมนู'):
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='ท่านสามรถเลือกเมนูจาก Bulletin ด้านล่าง')
+                TextSendMessage(text='ท่านสามารถเลือกเมนูจาก Bulletin ด้านล่าง'),
+                TextSendMessage(text='หรือสามารถพิมพ์คำสั่งต่อไปนี้ 1.[ขั้นตอนการลงทะเบียน] เพื่อดูวิธีการลงทะเบียนออนไลน์'\
+                                     '2.[ติดต่อ] เพื่อดูเบอร์โทรศัพท์ของโรงพยาบาล'\
+                                     '3.[ลงทะเบียนผู้ป่วย] เพื่อเข้าสู๋หน้าลงทะเบียนผู้ป่วยใหม่'\
+                                     '4.[คำถามที่พบบ่อย] เพื่อเเข้าสู่หน้า FAQ')
+            ]
+        )
+    elif(event.message.text == 'ติดต่อ'):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='ท่านสามารถเลือกเมนูจาก Bulletin ด้านล่าง'),
+                TextSendMessage(
+                    text='หรือสามารถพิมพ์คำสั่งต่อไปนี้ 1.[ขั้นตอนการลงทะเบียน] เพื่อดูวิธีการลงทะเบียนออนไลน์' \
+                         '2.[ติดต่อ] เพื่อดูเบอร์โทรศัพท์ของโรงพยาบาล' \
+                         '3.[')
             ]
         )
     else:
