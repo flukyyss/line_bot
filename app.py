@@ -4,9 +4,7 @@ import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
 import numpy as np
-#import cv2
-from matplotlib import pyplot as plt
-plt.use('Agg')
+import cv2
 import errno
 import pycurl
 from argparse import ArgumentParser
