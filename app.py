@@ -5,7 +5,7 @@ from tempfile import NamedTemporaryFile
 import json
 import numpy as np
 #import cv2
-#from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 import errno
 import pycurl
 from argparse import ArgumentParser
