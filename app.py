@@ -3,8 +3,8 @@ from flask import Flask, request, abort
 import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
-#import numpy as np
-import cv2
+import numpy as np
+#import cv2
 from matplotlib import pyplot as plt
 import errno
 import pycurl
