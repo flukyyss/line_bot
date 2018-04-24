@@ -5,7 +5,6 @@ import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
 import numpy as np
-import cv2
 import errno
 import pycurl
 from argparse import ArgumentParser
