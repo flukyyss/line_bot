@@ -1,12 +1,12 @@
+
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
-
 img1 = cv2.imread(r'C:\Users\fluky\Desktop\New folder (2)\New folder\pat1.jpg',0) # queryImage
 img2 = cv2.imread(r'C:\Users\fluky\Desktop\New folder (2)\New folder\pat2.jpg',0) # trainImage
 
 # Initiate SIFT detector
-sift = cv2.SIFT()
+sift = cv2.xfeatures2d.SIFT_create()
 
 # find the keypoints and descriptors with SIFT
 kp1, des1 = sift.detectAndCompute(img1,None)
@@ -23,6 +23,6 @@ for m,n in matches:
         good.append([m])
 
 # cv2.drawMatchesKnn expects list of lists as matches.
-img3 = cv2.drawMatchesKnn(img1,kp1,img2,kp2,good,flags=2)
+img3 = cv2.drawMatches(img1,kp1,img2,kp2,good,flags=2)
 
 plt.imshow(img3),plt.show()
