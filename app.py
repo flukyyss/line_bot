@@ -191,7 +191,7 @@ def handle_image_message(event):
     percentage2 = count2*100/ (im3.size[0] * im3.size[1])
     print(count2*100 / (im3.size[0] * im3.size[1]))
 
-    if(percentage1 <= 25 | percentage2 <=25):
+    if(percentage1 <= 25):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
