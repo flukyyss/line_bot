@@ -139,7 +139,7 @@ def handle_image_message(event):
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
 
-    im = Image.open(tempfile_path)
+    im = Image.open(dist_path)
     rgb_im = im.convert('RGB')
     r, g, b = rgb_im.getpixel((1, 1))
 
