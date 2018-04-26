@@ -153,11 +153,11 @@ def handle_image_message(event):
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im = im.resize((im2.size[0],im2.size[1]))
         print('resize')
-    print(pix1[0][0])
+    print(pix1[0,0])
     for n in range(im2.size[1]): #
         for r in range(im2.size[0]):
-            r1,g1,b1,a1 = pix1[n][r]
-            r2,g2,b2,a2 = pix2[n][r]
+            r1,g1,b1,a1 = pix1[n,r]
+            r2,g2,b2,a2 = pix2[n,r]
             dift = euclid_dist(r1,g1,b1,r2,g2,b2)
         if(n%10==0):
             print(n)
