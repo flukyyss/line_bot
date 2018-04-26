@@ -5,6 +5,7 @@ import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
 import numpy as np
+import math
 from skimage import io, color
 import errno
 from PIL import Image
@@ -150,18 +151,11 @@ def handle_image_message(event):
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im = im.resize((im2.size[0],im2.size[1]))
         print('resize')
-    lab_im = color.rgb2lab(im)
-    lab_im2 = color.rgb2lab(im2)
-    print(lab_im[0][0])
-    print(lab_im2[0][0])
     for n in range(im2.size[1]): #
         for r in range(im2.size[0]):
-            pixel1 = lab_im[n][r]
-            pixel2 = lab_im2[n][r]
-
-            delta_e = delta_e_cie2000(pixel1,pixel2)
-            if(delta_e<15):
-                count+=1
+            r1,g1,b1 = im[n][r]
+            r2,g2,b2 = im2[n][r]
+            dift = euclid_dist(r1,g1,b1,r2,g2,b2)
         if(n%10==0):
             print(n)
     print(count)
@@ -190,6 +184,9 @@ def handle_image_message(event):
         ]
     )
     '''''''''''
+def euclid_dist(r1,g1,b1,r2,g2,b2):
+    res = math.sqrt((2*(r2-r1)*(r2-r1)+4*(g2-g1)*(g2-g1)+3*(b2-b1)*(b2-b1))+((r2+r1)/2)*((r2-r1)*(r2-r1)-(b2-b1)*(b2-b1))/2)
+    return res
 
 if __name__ == '__main__':
     make_static_tmp_dir()
