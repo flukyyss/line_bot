@@ -188,7 +188,7 @@ def handle_image_message(event):
     )
     '''''''''''
 def euclid_dist(r1,g1,b1,r2,g2,b2):
-    res = math.sqrt((2*(r2-r1)*(r2-r1)+4*(g2-g1)*(g2-g1)+3*(b2-b1)*(b2-b1))+((r2+r1)/2)*((r2-r1)*(r2-r1)-(b2-b1)*(b2-b1))/2)
+    res = math.sqrt((2*(r2-r1)*(r2-r1)+4*(g2-g1)*(g2-g1)+3*(b2-b1)*(b2-b1))+((r2+r1)/2)*((r2-r1)*(r2-r1)-(b2-b1)*(b2-b1))/256)
     return res
 
 if __name__ == '__main__':
