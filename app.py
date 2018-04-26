@@ -181,7 +181,7 @@ def handle_image_message(event):
         for r in range(im3.size[1]):
             r1, g1, b1 = pix1[n, r]
             r3, g3, b3 = pix3[n, r]
-            dift1 = euclid_dist(r1, g1, b1, r3, g3, b23)
+            dift1 = euclid_dist(r1, g1, b1, r3, g3, b3)
             if (dift1 <= 120):
                 count2+= 1
         if (n % 100 == 0):
@@ -191,7 +191,7 @@ def handle_image_message(event):
     percentage2 = count2*100/ (im3.size[0] * im3.size[1])
     print(count2*100 / (im3.size[0] * im3.size[1]))
 
-    if(percentage1 <= 25 || percentage2 <=25):
+    if(percentage1 <= 25 | percentage2 <=25):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
