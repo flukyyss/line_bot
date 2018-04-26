@@ -5,8 +5,8 @@ import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
 import numpy as np
+from PIL import Image
 import errno
-import cv2
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
