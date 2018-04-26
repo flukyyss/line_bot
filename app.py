@@ -158,7 +158,7 @@ def handle_image_message(event):
         for r in range(im2.size[1]):
             pixel1 = lab_im[n][r]
             pixel2 = lab_im2[n][r]
-            print(pixel1)
+            
             delta_e = delta_e_cie2000(LabColor(lab_l=pixel1[0],lab_a=pixel1[1],lab_b=pixel1[2]),LabColor(lab_l=pixel2[0],lab_a=pixel2[1],lab_b=pixel2[2]))
             if(delta_e<15):
                  count+=1
