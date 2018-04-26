@@ -145,7 +145,7 @@ def handle_image_message(event):
     os.rename(tempfile_path, dist_path)
 
     im = Image.open(dist_path)
-    im2 = Image.open('/static/temp/pat2.jpg')
+    im2 = Image.open('pat2.jpg')
     rgb_im = im.convert('RGB')
     rgb_im2 = im2.convert('RGB')
     count=0
