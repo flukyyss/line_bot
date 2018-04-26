@@ -159,8 +159,11 @@ def handle_image_message(event):
             r1,g1,b1 = pix1[n,r]
             r2,g2,b2 = pix2[n,r]
             dift = euclid_dist(r1,g1,b1,r2,g2,b2)
-        if(n%10==0):
+            if(dift<=15):
+                count+=1
+        if(n%100==0):
             print(n)
+
     print(count)
     print(count/(im2.size[0]*im2.size[1]))
 
