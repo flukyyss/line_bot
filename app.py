@@ -147,7 +147,6 @@ def handle_image_message(event):
 
     im = Image.open(dist_path)
     im2 = Image.open('pat2.jpg')
-    count = 0
     count1 = 0
     count2 = 0
     print(im.size)
@@ -169,9 +168,30 @@ def handle_image_message(event):
             print(n)
 
     print(count1)
-    percentage = count1*100/ (im2.size[0] * im2.size[1])
+    percentage1 = count1*100/ (im2.size[0] * im2.size[1])
     print(count1*100 / (im2.size[0] * im2.size[1]))
-    if(percentage <= 25):
+
+    im3 = Image.open('pat3,jpg')
+    if (im.size[0] != im3.size[0] | im.size[1] != im3.size[1]):
+        im = im.resize((im3.size[0], im3.size[1]))
+        print(im.size)
+        print('resize')
+    pix3 = im3.load()
+    for n in range(im3.size[0]):  #
+        for r in range(im3.size[1]):
+            r1, g1, b1 = pix1[n, r]
+            r3, g3, b3 = pix3[n, r]
+            dift1 = euclid_dist(r1, g1, b1, r3, g3, b23)
+            if (dift1 <= 120):
+                count2+= 1
+        if (n % 100 == 0):
+            print(n)
+
+    print(count2)
+    percentage2 = count2*100/ (im3.size[0] * im3.size[1])
+    print(count2*100 / (im3.size[0] * im3.size[1]))
+
+    if(percentage1 <= 25 || percentage2 <=25):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
@@ -179,13 +199,13 @@ def handle_image_message(event):
     else:
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='Image saved'+request.host_url + os.path.join('static', 'tmp', dist_name)),
+                TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
                                  preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity' + '%.3f' % percentage + '%'),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.3f' % percentage1 + ' %'),
                 ImageSendMessage(original_content_url="https://preview.ibb.co/koNJu7/pat3_s.jpg",
                              preview_image_url="https://preview.ibb.co/koNJu7/pat3_s.jpg"),
-                TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.3f' % percentage2 + ' %')
         ])
     '''''''''''
     line_bot_api.reply_message(
