@@ -163,11 +163,11 @@ def handle_image_message(event):
             r1,g1,b1 = pix1[n,r]
             r2,g2,b2 = pix2[n,r]
             dift = euclid_dist(r1,g1,b1,r2,g2,b2)
-            if(dift<=10):
+            if(dift<=200):
                 count+=1
-            if(dift<=5):
+            if(dift<=100):
                 count1+=1
-            if(dift<=2):
+            if(dift<=20):
                 count2+=1
         if(n%100==0):
             print(n)
