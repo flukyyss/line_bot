@@ -141,8 +141,13 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='Save content.'),
-            TextSendMessage(text=request.host_url + os.path.join('static', 'tmp', dist_name))
+            TextSendMessage(text='Save content.'+request.host_url + os.path.join('static', 'tmp', dist_name)),
+            ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
+                             preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
+            TextSendMessage(text='Breast has 620 ml with similarity 59.83 %'),
+            ImageSendMessage(original_content_url="https://preview.ibb.co/koNJu7/pat3_s.jpg",
+                             preview_image_url="https://preview.ibb.co/koNJu7/pat3_s.jpg"),
+            TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
         ])
     '''''''''''
     line_bot_api.reply_message(
