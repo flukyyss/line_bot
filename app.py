@@ -151,13 +151,13 @@ def handle_image_message(event):
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im.resize((im2.size[0],im2.size[1]))
-        print('resized')
+        print('resize')
         print(im2.size[0])
         print(im2.size[1])
     for n in range(im2.size[0]):
         for r in range(im2.size[1]):
-            pixel1 = rgb_im.getpixel((n,r))
-            pixel2 = rgb_im2.getpixel((n,r))
+            pixel1 = rgb_im.getpixel((n, r))
+            pixel2 = rgb_im2.getpixel((n, r))
             color1_rgb = sRGBColor(pixel1[0],pixel1[1],pixel1[2])
             color2_rgb = sRGBColor(pixel2[0],pixel2[1],pixel2[2])
             color1_lab = convert_color(color1_rgb, LabColor)
