@@ -147,15 +147,17 @@ def handle_image_message(event):
 
     im = Image.open(dist_path)
     im2 = Image.open('pat2.jpg')
+    count = 0
+    count1 = 0
+    count2 = 0
+    print(im.size)
+    if(im.size[0]!=im2.size[0] | im.size[1]!=im2.size[1]):
+        im = im.resize((im2.size[0],im2.size[1]))
+        print(im.size)
+        print('resize')
+
     pix1 = im.load()
     pix2 = im2.load()
-    count=0
-    count1=0
-    count2=0
-    if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
-        im = im.resize((im2.size[0],im2.size[1]))
-        print('resize')
-    print(pix1[0,0])
     for n in range(im2.size[0]): #
         for r in range(im2.size[1]):
             r1,g1,b1 = pix1[n,r]
