@@ -169,8 +169,8 @@ def handle_image_message(event):
             print(n)
 
     print(count1)
-    percentage = count1/ (im2.size[0] * im2.size[1])
-    print(count1 / (im2.size[0] * im2.size[1]))
+    percentage = count1*100/ (im2.size[0] * im2.size[1])
+    print(count1*100 / (im2.size[0] * im2.size[1]))
     if(percentage <= 25):
         line_bot_api.reply_message(
             event.reply_token, [
