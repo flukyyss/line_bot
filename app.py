@@ -173,6 +173,8 @@ def handle_image_message(event):
             print(n)
 
     print(count)
+    print(count1)
+    print(count2)
     print(count1 / (im2.size[0] * im2.size[1]))
     print(count2 / (im2.size[0] * im2.size[1]))
     print(count/(im2.size[0]*im2.size[1]))
