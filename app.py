@@ -146,8 +146,8 @@ def handle_image_message(event):
 
     im = Image.open(dist_path)
     im2 = Image.open('pat2.jpg')
-    rgb_im = im.convert('RGB')
-    rgb_im2 = im2.convert('RGB')
+    lab_im = im.convert('LAB')
+    lab_im2 = im2.convert('LAB')
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im.resize((im2.size[0],im2.size[1]))
@@ -156,21 +156,15 @@ def handle_image_message(event):
         print(im2.size[1])
     for n in range(im2.size[0]): #
         for r in range(im2.size[1]):
-            pixel1 = rgb_im.getpixel((n, r))
-            pixel2 = rgb_im2.getpixel((n, r))
-            color1_rgb = sRGBColor(pixel1[0],pixel1[1],pixel1[2])
-            color2_rgb = sRGBColor(pixel2[0],pixel2[1],pixel2[2])
-            # color1_lab = convert_color(color1_rgb, LabColor)
-            # color2_lab = convert_color(color2_rgb, LabColor)
-            # delta_e = delta_e_cie2000(color1_lab,color2_lab)
-            # if(delta_e<15):
-            #     count+=1
+            pixel1 = lab_im.getpixel((n, r))
+            pixel2 = lab_im2.getpixel((n, r))
+            delta_e = delta_e_cie2000(pixel1,pixel2)
+            if(delta_e<15):
+                 count+=1
         if(n%10==0):
             print(n)
+    print(count)
     print(count/(im2.size[0]*im2.size[1]))
-    r, g, b = rgb_im.getpixel((1, 1))
-
-    print(r, g, b)
 
     line_bot_api.reply_message(
         event.reply_token, [
