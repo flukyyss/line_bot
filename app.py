@@ -203,10 +203,10 @@ def handle_image_message(event):
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
                                  preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.3f' % percentage1 + ' %'),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage1 + ' %'),
                 ImageSendMessage(original_content_url="https://preview.ibb.co/koNJu7/pat3_s.jpg",
                              preview_image_url="https://preview.ibb.co/koNJu7/pat3_s.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.3f' % percentage2 + ' %')
+                TextSendMessage(text='Breast has 490 ml with similarity ' + '%.2f' % percentage2 + ' %')
         ])
     '''''''''''
     line_bot_api.reply_message(
