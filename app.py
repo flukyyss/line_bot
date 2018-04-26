@@ -150,6 +150,8 @@ def handle_image_message(event):
     pix1 = im.load()
     pix2 = im2.load()
     count=0
+    count1=0
+    count2=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im = im.resize((im2.size[0],im2.size[1]))
         print('resize')
@@ -159,12 +161,18 @@ def handle_image_message(event):
             r1,g1,b1 = pix1[n,r]
             r2,g2,b2 = pix2[n,r]
             dift = euclid_dist(r1,g1,b1,r2,g2,b2)
-            if(dift<=15):
+            if(dift<=5):
                 count+=1
+            if(dift<=3):
+                count1+=1
+            if(dift<=2):
+                count2+=1
         if(n%100==0):
             print(n)
 
     print(count)
+    print(count1 / (im2.size[0] * im2.size[1]))
+    print(count2 / (im2.size[0] * im2.size[1]))
     print(count/(im2.size[0]*im2.size[1]))
 
     line_bot_api.reply_message(
