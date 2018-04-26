@@ -11,7 +11,7 @@ from PIL import Image
 
 from colormath.color_objects import sRGBColor, LabColor
 from colormath.color_conversions import convert_color
-from colormath.color_diff import delta_e_cie2000
+from colormath.color_diff_matrix import delta_e_cie2000
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
