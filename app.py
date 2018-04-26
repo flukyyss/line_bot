@@ -165,6 +165,8 @@ def handle_image_message(event):
             delta_e = delta_e_cie2000(color1_lab,color2_lab)
             if(delta_e<15):
                 count+=1
+        if(n%10==0):
+            print(n)
     print(count/(im2.size[0]*im2.size[1]))
     r, g, b = rgb_im.getpixel((1, 1))
 
