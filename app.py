@@ -171,7 +171,7 @@ def handle_image_message(event):
     percentage1 = count1*100/ (im2.size[0] * im2.size[1])
     print(count1*100 / (im2.size[0] * im2.size[1]))
 
-    im3 = Image.open('pat3,jpg')
+    im3 = Image.open('pat3.jpg')
     if (im.size[0] != im3.size[0] | im.size[1] != im3.size[1]):
         im = im.resize((im3.size[0], im3.size[1]))
         print(im.size)
