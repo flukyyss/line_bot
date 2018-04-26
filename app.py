@@ -6,7 +6,6 @@ from tempfile import NamedTemporaryFile
 import json
 import numpy as np
 import errno
-import pycurl
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
@@ -123,12 +122,28 @@ def handle_text_message(event):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text=event.message.text)
-
             ]
         )
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
+
+    message_content = line_bot_api.get_message_content(event.message.id)
+    with NamedTemporaryFile(dir=static_tmp_path, prefix='img-', delete=False) as tf:
+        for chunk in message_content.iter_content():
+            tf.write(chunk)
+        tempfile_path = tf.name
+
+    dist_path = tempfile_path + '.' + 'jpg'
+    dist_name = os.path.basename(dist_path)
+    os.rename(tempfile_path, dist_path)
+
+    line_bot_api.reply_message(
+        event.reply_token, [
+            TextSendMessage(text='Save content.'),
+            TextSendMessage(text=request.host_url + os.path.join('static', 'tmp', dist_name))
+        ])
+    '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
 
@@ -140,6 +155,7 @@ def handle_image_message(event):
             TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
         ]
     )
+    '''''''''''
 
 if __name__ == '__main__':
     make_static_tmp_dir()
