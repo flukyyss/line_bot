@@ -156,8 +156,8 @@ def handle_image_message(event):
         print(im.size[1])
     lab_im = color.rgb2lab(im)
     lab_im2 = color.rgb2lab(im2)
-    for n in range(im2.size[0]): #
-        for r in range(im2.size[1]):
+    for n in range(im2.size[1]): #
+        for r in range(im2.size[0]):
             pixel1 = lab_im[n][r]
             pixel2 = lab_im2[n][r]
 
