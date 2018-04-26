@@ -128,7 +128,8 @@ def handle_text_message(event):
     else:
         line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text=event.message.text)
+                TextSendMessage(text='ไม่รู้จักคำว่า ' + event.message.text),
+                TextSendMessage(text='ลองพิมพ์ [เมนู] ดูนะครับ')
             ]
         )
 
