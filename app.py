@@ -7,6 +7,11 @@ import json
 import numpy as np
 from PIL import Image
 import errno
+from PIL import Image
+
+from colormath.color_objects import sRGBColor, LabColor
+from colormath.color_conversions import convert_color
+from colormath.color_diff import delta_e_cie2000
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
@@ -140,7 +145,24 @@ def handle_image_message(event):
     os.rename(tempfile_path, dist_path)
 
     im = Image.open(dist_path)
+    im2 = Image.open('/static/temp/pat2.jpg')
     rgb_im = im.convert('RGB')
+    rgb_im2 = im2.convert('RGB')
+    count=0
+    if(im.size()!=im2.size()):
+        im.resize(im2.size())
+    for n in range(im2.size[0]):
+        for r in range(im2.size[1]):
+            pixel1 = rgb_im.getpixel((n,r))
+            pixel2 = rgb_im2.getpixel((n,r))
+            color1_rgb = sRGBColor(pixel1[0],pixel1[1],pixel1[2])
+            color2_rgb = sRGBColor(pixel2[0],pixel2[1],pixel2[2])
+            color1_lab = convert_color(color1_rgb, LabColor)
+            color2_lab = convert_color(color2_rgb, LabColor)
+            delta_e = delta_e_cie2000(color1_lab,color2_lab)
+            if(delta_e<15):
+                count+=1
+    print(count/(im2.size[0]*im2.size[1]))
     r, g, b = rgb_im.getpixel((1, 1))
 
     print(r, g, b)
