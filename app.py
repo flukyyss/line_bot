@@ -147,14 +147,16 @@ def handle_image_message(event):
 
     im = Image.open(dist_path)
     im2 = Image.open('pat2.jpg')
+    pix1 = im.load()
+    pix2 = im2.load()
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im = im.resize((im2.size[0],im2.size[1]))
         print('resize')
     for n in range(im2.size[1]): #
         for r in range(im2.size[0]):
-            r1,g1,b1 = im[n][r]
-            r2,g2,b2 = im2[n][r]
+            r1,g1,b1 = pix1[n][r]
+            r2,g2,b2 = pix2[n][r]
             dift = euclid_dist(r1,g1,b1,r2,g2,b2)
         if(n%10==0):
             print(n)
