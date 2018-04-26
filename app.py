@@ -148,17 +148,19 @@ def handle_image_message(event):
     im2 = Image.open('pat2.jpg')
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
-        im.resize((im2.size[0],im2.size[1]))
+        im = im.resize((im2.size[0],im2.size[1]))
         print('resize')
         print(im2.size[0])
         print(im2.size[1])
+        print(im.size[0])
+        print(im.size[1])
     lab_im = color.rgb2lab(im)
     lab_im2 = color.rgb2lab(im2)
     for n in range(im2.size[0]): #
         for r in range(im2.size[1]):
             pixel1 = lab_im[n][r]
             pixel2 = lab_im2[n][r]
-            
+
             delta_e = delta_e_cie2000(LabColor(lab_l=pixel1[0],lab_a=pixel1[1],lab_b=pixel1[2]),LabColor(lab_l=pixel2[0],lab_a=pixel2[1],lab_b=pixel2[2]))
             if(delta_e<15):
                  count+=1
