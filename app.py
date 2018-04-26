@@ -158,10 +158,10 @@ def handle_image_message(event):
         for r in range(im2.size[1]):
             pixel1 = rgb_im.getpixel((n, r))
             pixel2 = rgb_im2.getpixel((n, r))
-            # color1_rgb = sRGBColor(pixel1[0],pixel1[1],pixel1[2])
-            # color2_rgb = sRGBColor(pixel2[0],pixel2[1],pixel2[2])
-            # color1_lab = convert_color(color1_rgb, LabColor)
-            # color2_lab = convert_color(color2_rgb, LabColor)
+            color1_rgb = sRGBColor(pixel1[0],pixel1[1],pixel1[2])
+            color2_rgb = sRGBColor(pixel2[0],pixel2[1],pixel2[2])
+            color1_lab = convert_color(color1_rgb, LabColor)
+            color2_lab = convert_color(color2_rgb, LabColor)
             # delta_e = delta_e_cie2000(color1_lab,color2_lab)
             # if(delta_e<15):
             #     count+=1
@@ -174,13 +174,13 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='Save content.'+request.host_url + os.path.join('static', 'tmp', dist_name)),
-            ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
-                             preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
-            TextSendMessage(text='Breast has 620 ml with similarity 59.83 %'),
-            ImageSendMessage(original_content_url="https://preview.ibb.co/koNJu7/pat3_s.jpg",
-                             preview_image_url="https://preview.ibb.co/koNJu7/pat3_s.jpg"),
-            TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
+            TextSendMessage(text='Save content.'+request.host_url + os.path.join('static', 'tmp', dist_name))
+            # ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
+            #                  preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
+            # TextSendMessage(text='Breast has 620 ml with similarity 59.83 %'),
+            # ImageSendMessage(original_content_url="https://preview.ibb.co/koNJu7/pat3_s.jpg",
+            #                  preview_image_url="https://preview.ibb.co/koNJu7/pat3_s.jpg"),
+            # TextSendMessage(text='Breast has 490 ml with similarity 68.73 %')
         ])
     '''''''''''
     line_bot_api.reply_message(
