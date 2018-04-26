@@ -6,6 +6,7 @@ from tempfile import NamedTemporaryFile
 import json
 import numpy as np
 import errno
+import cv2
 from argparse import ArgumentParser
 from linebot import (
     LineBotApi, WebhookHandler
