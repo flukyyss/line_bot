@@ -5,7 +5,7 @@ import os, stat, urllib
 from tempfile import NamedTemporaryFile
 import json
 import numpy as np
-from PIL import Image
+from skimage import io, color
 import errno
 from PIL import Image
 
@@ -146,8 +146,8 @@ def handle_image_message(event):
 
     im = Image.open(dist_path)
     im2 = Image.open('pat2.jpg')
-    lab_im = im.convert('LAB')
-    lab_im2 = im2.convert('LAB')
+    lab_im = color.rgb2lab(im)
+    lab_im2 = color.rgb2lab(im2)
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im.resize((im2.size[0],im2.size[1]))

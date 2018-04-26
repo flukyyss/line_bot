@@ -25,3 +25,4 @@ opencv-contrib-python==3.4.0.12
 matplotlib==2.2.2
 Pillow==5.1.0
 colormath==3.0.0
+scikit-image==0.13.1
