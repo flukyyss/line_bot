@@ -149,7 +149,7 @@ def handle_image_message(event):
     rgb_im = im.convert('RGB')
     rgb_im2 = im2.convert('RGB')
     count=0
-    if(im.size()!=im2.size()):
+    if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
         im.resize(im2.size())
     for n in range(im2.size[0]):
         for r in range(im2.size[1]):
