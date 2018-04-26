@@ -139,6 +139,12 @@ def handle_image_message(event):
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
 
+    im = Image.open(tempfile_path)
+    rgb_im = im.convert('RGB')
+    r, g, b = rgb_im.getpixel((1, 1))
+
+    print(r, g, b)
+
     line_bot_api.reply_message(
         event.reply_token, [
             TextSendMessage(text='Save content.'+request.host_url + os.path.join('static', 'tmp', dist_name)),
