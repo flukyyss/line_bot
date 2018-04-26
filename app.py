@@ -141,7 +141,7 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='Save content.'),
+            TextSendMessage(text='Saving content.'),
             TextSendMessage(text=request.host_url + os.path.join('static', 'tmp', dist_name))
         ])
     '''''''''''
