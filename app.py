@@ -150,7 +150,7 @@ def handle_image_message(event):
     rgb_im2 = im2.convert('RGB')
     count=0
     if(im.size[0]!=im2.size[0] & im.size[1]!=im2.size[1]):
-        im.resize(im2.size())
+        im.resize((im2.size[0],im2.size[1]))
     for n in range(im2.size[0]):
         for r in range(im2.size[1]):
             pixel1 = rgb_im.getpixel((n,r))
