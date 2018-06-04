@@ -254,7 +254,7 @@ def handle_image_message(event):
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
             ])
-    elif(maxpercent == percentage2):
+    elif(maxpercent == percentage4):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
