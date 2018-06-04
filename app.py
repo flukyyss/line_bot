@@ -258,37 +258,35 @@ def handle_image_message(event):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
                 TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
         ])
 
-    elif (maxpercent == percentage4):
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-            ])
-
-    elif (maxpercent == percentage4):
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-            ])
-
-    elif (maxpercent == percentage4):
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-            ])
+    # elif (maxpercent == percentage4):
+    #     line_bot_api.reply_message(
+    #         event.reply_token, [
+    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+    #         ])
+    #
+    # elif (maxpercent == percentage4):
+    #     line_bot_api.reply_message(
+    #         event.reply_token, [
+    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+    #         ])
+    #
+    # elif (maxpercent == percentage4):
+    #     line_bot_api.reply_message(
+    #         event.reply_token, [
+    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+    #         ])
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
