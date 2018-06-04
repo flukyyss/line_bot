@@ -38,6 +38,7 @@ Authorization = 'Bearer DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1UKDSv' \
 headers = {
   'Content-Type': 'application/json; charset=UTF-8',
   'Authorization': Authorization
+
   }
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
@@ -153,8 +154,8 @@ def handle_image_message(event):
     im2 = Image.open('pat2.jpg')
     count1 = 0
     count2 = 0
-	count3 = 0
-	count4 = 0
+    count3 = 0
+    count4 = 0
     print(im.size)
     if(im.size[0]!=im2.size[0] | im.size[1]!=im2.size[1]):
         im = im.resize((im2.size[0],im2.size[1]))
@@ -177,8 +178,7 @@ def handle_image_message(event):
     percentage1 = count1*100/ (im2.size[0] * im2.size[1])
     print(count1*100 / (im2.size[0] * im2.size[1]))
 
-	---------------------
-	im1 = Image.open('pat1.jpg')
+    im1 = Image.open('pat1.jpg')
     if (im.size[0] != im1.size[0] | im.size[1] != im1.size[1]):
         im = im.resize((im1.size[0], im1.size[1]))
         print(im.size)
@@ -198,9 +198,8 @@ def handle_image_message(event):
     print(count2)
 	
     percentage2 = count2*100/ (im1.size[0] * im1.size[1])
-	---------------------------------------------------------------
 	
-	im3 = Image.open('pat3.jpg')
+    im3 = Image.open('pat3.jpg')
     if (im.size[0] != im3.size[0] | im.size[1] != im3.size[1]):
         im = im.resize((im3.size[0], im3.size[1]))
         print(im.size)
@@ -246,9 +245,9 @@ def handle_image_message(event):
     percentage4 = count4*100/ (im4.size[0] * im4.size[1])
     print(count4*100 / (im4.size[0] * im4.size[1]))
 	
-	percentlist = [percentage1,percentage2,percentage3,percentage4]
+    percentlist = [percentage1,percentage2,percentage3,percentage4]
 	
-	maxpercent = max(percentlist)
+    maxpercent = max(percentlist)
 
     if(percentage1 <= 25):
         line_bot_api.reply_message(
