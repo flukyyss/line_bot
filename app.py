@@ -249,7 +249,7 @@ def handle_image_message(event):
 	
     maxpercent = max(percentlist)
 
-    if(percentage1 <= 25 & percentage2 <=25 & percentage3 <= 25 & percentage4 <= 25):
+    if(percentage1 <= 20 and percentage2 <=20 and percentage3 <= 20 and percentage4 <= 20):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
@@ -262,6 +262,33 @@ def handle_image_message(event):
                                  preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
                 TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
         ])
+
+    elif (maxpercent == percentage4):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+            ])
+
+    elif (maxpercent == percentage4):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+            ])
+
+    elif (maxpercent == percentage4):
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
+                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+            ])
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
