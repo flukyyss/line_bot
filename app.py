@@ -222,12 +222,12 @@ def handle_image_message(event):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
-                                 preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
+                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
+                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
                 TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage1 + ' %'),
                 ImageSendMessage(original_content_url="https://image.ibb.co/i3vCNo/test1.jpg",
                              preview_image_url="https://image.ibb.co/i3vCNo/test1.jpg"),
-                TextSendMessage(text='Breast has 490 ml with similarity ' + '%.2f' % percentage4 + ' %')
+                TextSendMessage(text='Breast has xx ml with similarity ' + '%.2f' % percentage4 + ' %')
         ])
     '''''''''''
     line_bot_api.reply_message(
