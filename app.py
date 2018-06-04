@@ -38,7 +38,6 @@ Authorization = 'Bearer DXYPEtAqiUkn9e2HyPughfjyafbrCxT4nBZ52rDf1UKDSv' \
 headers = {
   'Content-Type': 'application/json; charset=UTF-8',
   'Authorization': Authorization
-
   }
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
@@ -148,13 +147,9 @@ def handle_image_message(event):
     os.rename(tempfile_path, dist_path)
 
     im = Image.open(dist_path)
-	
-	
-	
     im2 = Image.open('pat2.jpg')
     count1 = 0
     count2 = 0
-    count3 = 0
     count4 = 0
     print(im.size)
     if(im.size[0]!=im2.size[0] | im.size[1]!=im2.size[1]):
@@ -162,13 +157,13 @@ def handle_image_message(event):
         print(im.size)
         print('resize')
 
-    pix = im.load()
+    pix1 = im.load()
     pix2 = im2.load()
     for n in range(im2.size[0]): #
         for r in range(im2.size[1]):
-            r,g,b = pix[n,r]
+            r1,g1,b1 = pix1[n,r]
             r2,g2,b2 = pix2[n,r]
-            dift = euclid_dist(r,g,b,r2,g2,b2)
+            dift = euclid_dist(r1,g1,b1,r2,g2,b2)
             if(dift<=120):
                 count1 += 1
         if(n%100==0):
@@ -178,115 +173,62 @@ def handle_image_message(event):
     percentage1 = count1*100/ (im2.size[0] * im2.size[1])
     print(count1*100 / (im2.size[0] * im2.size[1]))
 
-    im1 = Image.open('pat1.jpg')
-    if (im.size[0] != im1.size[0] | im.size[1] != im1.size[1]):
-        im = im.resize((im1.size[0], im1.size[1]))
-        print(im.size)
-        print('resize')
-    pix1 = im1.load()
-	
-    for n in range(im1.size[0]):  #
-        for r in range(im1.size[1]):
-            r, g, b = pix[n, r]
-            r1, g1, b1 = pix1[n, r]
-            dift1 = euclid_dist(r, g, b, r1, g1, b1)
-            if (dift1 <= 120):
-                count2+= 1
-        if (n % 100 == 0):
-            print(n)
-
-    print(count2)
-	
-    percentage2 = count2*100/ (im1.size[0] * im1.size[1])
-	
     im3 = Image.open('pat3.jpg')
     if (im.size[0] != im3.size[0] | im.size[1] != im3.size[1]):
         im = im.resize((im3.size[0], im3.size[1]))
         print(im.size)
         print('resize')
     pix3 = im3.load()
-	
     for n in range(im3.size[0]):  #
         for r in range(im3.size[1]):
-            r, g, b = pix[n, r]
+            r1, g1, b1 = pix1[n, r]
             r3, g3, b3 = pix3[n, r]
-            dift1 = euclid_dist(r, g, b, r3, g3, b3)
+            dift1 = euclid_dist(r1, g1, b1, r3, g3, b3)
             if (dift1 <= 120):
-                count3+= 1
+                count2+= 1
         if (n % 100 == 0):
             print(n)
 
-    print(count3)
-	
-    percentage3 = count3*100/ (im3.size[0] * im3.size[1])
-	
-	
-	
-	
+    print(count2)
+    percentage2 = count2*100/ (im3.size[0] * im3.size[1])
+    print(count2*100 / (im3.size[0] * im3.size[1]))
+
     im4 = Image.open('pat4.jpg')
     if (im.size[0] != im4.size[0] | im.size[1] != im4.size[1]):
         im = im.resize((im4.size[0], im4.size[1]))
         print(im.size)
         print('resize')
     pix4 = im4.load()
-	
+
     for n in range(im4.size[0]):  #
         for r in range(im4.size[1]):
-            r, g, b = pix[n, r]
+            r, g, b = pix1[n, r]
             r4, g4, b4 = pix4[n, r]
-            dift1 = euclid_dist(r, g, b, r3, g3, b3)
+            dift1 = euclid_dist(r, g, b, r4, g4, b4)
             if (dift1 <= 120):
-                count4+= 1
+                count4 += 1
         if (n % 100 == 0):
             print(n)
 
     print(count4)
-	
-    percentage4 = count4*100/ (im4.size[0] * im4.size[1])
-    print(count4*100 / (im4.size[0] * im4.size[1]))
-	
-    percentlist = [percentage1,percentage2,percentage3,percentage4]
-	
-    maxpercent = max(percentlist)
-
-    if(percentage1 <= 20 and percentage2 <=20 and percentage3 <= 20 and percentage4 <= 20):
+    percentage4 = count4 * 100 / (im4.size[0] * im4.size[1])
+    print(count4 * 100 / (im4.size[0] * im4.size[1]))
+    if(percentage1 <= 25):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
             ])
-    elif(maxpercent == percentage4):
+    else:
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
+                ImageSendMessage(original_content_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg",
+                                 preview_image_url="https://preview.ibb.co/fk8rE7/pat2_s.jpg"),
+                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage1 + ' %'),
+                ImageSendMessage(original_content_url="https://image.ibb.co/i3vCNo/test1.jpg",
+                             preview_image_url="https://image.ibb.co/i3vCNo/test1.jpg"),
+                TextSendMessage(text='Breast has 490 ml with similarity ' + '%.2f' % percentage4 + ' %')
         ])
-
-    # elif (maxpercent == percentage4):
-    #     line_bot_api.reply_message(
-    #         event.reply_token, [
-    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-    #         ])
-    #
-    # elif (maxpercent == percentage4):
-    #     line_bot_api.reply_message(
-    #         event.reply_token, [
-    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-    #         ])
-    #
-    # elif (maxpercent == percentage4):
-    #     line_bot_api.reply_message(
-    #         event.reply_token, [
-    #             TextSendMessage(text='Image saved. ' + request.host_url + os.path.join('static', 'tmp', dist_name)),
-    #             ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-    #                              preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-    #             TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage2 + ' %')
-    #         ])
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
