@@ -249,7 +249,7 @@ def handle_image_message(event):
 	
     maxpercent = max(percentlist)
 
-    if(percentage1 <= 25):
+    if(percentage1 <= 25 & percentage2 <=25 & percentage3 <= 25 & percentage4 <= 25):
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
