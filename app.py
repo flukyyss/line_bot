@@ -146,7 +146,7 @@ def handle_image_message(event):
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
 
-    im = Image.open(dist_path)
+    print('1')
 
     imgurl = ["https://image.ibb.co/niNnOT/img_1.jpg","https://image.ibb.co/d0Du3T/img_2.jpg","https://image.ibb.co/fbyGHo/img_3.jpg","https://image.ibb.co/fcjZ3T/img_4.jpg","https://image.ibb.co/fvGgiT/img_5.jpg",
               "https://image.ibb.co/f4kwHo/img_6.jpg","https://image.ibb.co/kNe1iT/img_7.jpg","https://image.ibb.co/kq1sq8/img_8.jpg","https://preview.ibb.co/fvLJV8/img_9.jpg","https://preview.ibb.co/cP6E3T/img_10.jpg",
@@ -192,14 +192,13 @@ def handle_image_message(event):
         if greyscale:
             image = image.convert("L")  # Convert it to grayscale.
         return image
-
-        for r in range(30):
-            similarity = []
-            base_img = 'img-' + str(r + 1) + '.jpg'
-            similarity.append((image_similarity_vectors_via_numpy(dist_path,base_img)))
-
-
-        line_bot_api.reply_message(
+    print('2')
+    for r in range(30):
+        similarity = []
+        base_img = 'img-' + str(r + 1) + '.jpg'
+        similarity.append((image_similarity_vectors_via_numpy(dist_path,base_img)))
+    print('3')
+    line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url=imgurl[1],
