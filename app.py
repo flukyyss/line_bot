@@ -200,8 +200,8 @@ def handle_image_message(event):
             image = image.convert("L")  # Convert it to grayscale.
         return image
     print('2')
+    similarity = []
     for r in range(30):
-        similarity = []
         base_img = 'img-' + str(r + 1) + '.jpg'
         similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
     minsim = min(similarity)
