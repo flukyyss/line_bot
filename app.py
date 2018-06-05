@@ -147,87 +147,63 @@ def handle_image_message(event):
     os.rename(tempfile_path, dist_path)
 
     im = Image.open(dist_path)
-    im2 = Image.open('pat2.jpg')
-    count1 = 0
-    count2 = 0
-    count4 = 0
-    print(im.size)
-    if(im.size[0]!=im2.size[0] | im.size[1]!=im2.size[1]):
-        im = im.resize((im2.size[0],im2.size[1]))
-        print(im.size)
-        print('resize')
 
-    pix1 = im.load()
-    pix2 = im2.load()
-    for n in range(im2.size[0]): #
-        for r in range(im2.size[1]):
-            r1,g1,b1 = pix1[n,r]
-            r2,g2,b2 = pix2[n,r]
-            dift = euclid_dist(r1,g1,b1,r2,g2,b2)
-            if(dift<=120):
-                count1 += 1
-        if(n%100==0):
-            print(n)
+    imgurl = ["https://image.ibb.co/niNnOT/img_1.jpg","https://image.ibb.co/d0Du3T/img_2.jpg","https://image.ibb.co/fbyGHo/img_3.jpg","https://image.ibb.co/fcjZ3T/img_4.jpg","https://image.ibb.co/fvGgiT/img_5.jpg",
+              "https://image.ibb.co/f4kwHo/img_6.jpg","https://image.ibb.co/kNe1iT/img_7.jpg","https://image.ibb.co/kq1sq8/img_8.jpg","https://preview.ibb.co/fvLJV8/img_9.jpg","https://preview.ibb.co/cP6E3T/img_10.jpg",
+              "https://preview.ibb.co/hfawHo/img_11.jpg","https://image.ibb.co/gZBsq8/img_12.jpg","https://image.ibb.co/feDixo/img_13.jpg","https://preview.ibb.co/fBrsq8/img_14.jpg","https://preview.ibb.co/c7CMiT/img_15.jpg",
+              "https://preview.ibb.co/iJMsq8/img_16.jpg","https://preview.ibb.co/f3CXq8/img_17.jpg","https://preview.ibb.co/e2F7OT/img_18.jpg","https://preview.ibb.co/mcKqco/img_19.jpg","https://preview.ibb.co/gksXq8/img_20.jpg",
+              "https://preview.ibb.co/fsiBiT/img_21.jpg","https://preview.ibb.co/dLuvA8/img_22.jpg","https://preview.ibb.co/cBDYxo/img_23.jpg","https://preview.ibb.co/f2k2q8/img_24.jpg","https://preview.ibb.co/eS2hq8/img_25.jpg",
+              "https://preview.ibb.co/ctYNq8/img_26.jpg","https://preview.ibb.co/jVMmHo/img_27.jpg","https://preview.ibb.co/cWbaA8/img_28.jpg","https://preview.ibb.co/c27FA8/img_29.jpg","https://preview.ibb.co/kPR8V8/img_30.jpg"]
 
-    print(count1)
-    percentage1 = count1*100/ (im2.size[0] * im2.size[1])
-    print(count1*100 / (im2.size[0] * im2.size[1]))
+    breast_vol = [360,370,310,600,450,470,470,580,630,530,550,500,480,540,540,410,550,420,420,570,500,510,520,500,460,440,360,430,420,490]
 
-    im3 = Image.open('pat3.jpg')
-    if (im.size[0] != im3.size[0] | im.size[1] != im3.size[1]):
-        im = im.resize((im3.size[0], im3.size[1]))
-        print(im.size)
-        print('resize')
-    pix3 = im3.load()
-    for n in range(im3.size[0]):  #
-        for r in range(im3.size[1]):
-            r1, g1, b1 = pix1[n, r]
-            r3, g3, b3 = pix3[n, r]
-            dift1 = euclid_dist(r1, g1, b1, r3, g3, b3)
-            if (dift1 <= 120):
-                count2+= 1
-        if (n % 100 == 0):
-            print(n)
+    def image_similarity_vectors_via_numpy(filepath1, filepath2):
+        # source: http://www.syntacticbayleaves.com/2008/12/03/determining-image-similarity/
+        # may throw: Value Error: matrices are not aligned .
+        from numpy import average, linalg, dot
 
-    print(count2)
-    percentage2 = count2*100/ (im3.size[0] * im3.size[1])
-    print(count2*100 / (im3.size[0] * im3.size[1]))
+        image1 = Image.open(filepath1)
+        image2 = Image.open(filepath2)
 
-    im4 = Image.open('pat4.jpg')
-    if (im.size[0] != im4.size[0] | im.size[1] != im4.size[1]):
-        im = im.resize((im4.size[0], im4.size[1]))
-        print(im.size)
-        print('resize')
-    pix4 = im4.load()
+        image1 = get_thumbnail(image1, stretch_to_fit=True)
+        image2 = get_thumbnail(image2, stretch_to_fit=True)
 
-    for n in range(im4.size[0]):  #
-        for r in range(im4.size[1]):
-            r, g, b = pix1[n, r]
-            r4, g4, b4 = pix4[n, r]
-            dift1 = euclid_dist(r, g, b, r4, g4, b4)
-            if (dift1 <= 120):
-                count4 += 1
-        if (n % 100 == 0):
-            print(n)
+        images = [image1, image2]
+        vectors = []
+        norms = []
+        for image in images:
+            vector = []
+            for pixel_tuple in image.getdata():
+                vector.append(average(pixel_tuple))
+            vectors.append(vector)
+            norms.append(linalg.norm(vector, 2))
+        a, b = vectors
+        a_norm, b_norm = norms
+        # ValueError: matrices are not aligned !
+        res = dot(a / a_norm, b / b_norm)
+        return res
 
-    print(count4)
-    percentage4 = count4 * 100 / (im4.size[0] * im4.size[1])
-    print(count4 * 100 / (im4.size[0] * im4.size[1]))
-    if(percentage1 <= 25):
-        line_bot_api.reply_message(
-            event.reply_token, [
-                TextSendMessage(text='ไม่ใช่รูปถ่ายหน้าอกหรือเปล่าครับ เลือกรูปใหม่ด้วยคร้าบ')
-            ])
-    else:
+    def get_thumbnail(image, size=(128, 128), stretch_to_fit=False, greyscale=False):
+        " get a smaller version of the image - makes comparison much faster/easier"
+        if not stretch_to_fit:
+            image.thumbnail(size, Image.ANTIALIAS)
+        else:
+            image = image.resize(size);  # for faster computation
+        if greyscale:
+            image = image.convert("L")  # Convert it to grayscale.
+        return image
+
+        for r in range(30):
+            similarity = []
+            base_img = 'img-' + str(r + 1) + '.jpg'
+            similarity.append((image_similarity_vectors_via_numpy(dist_path,base_img)))
+
+
         line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url="https://preview.ibb.co/c6f1F8/pat2.jpg",
-                                 preview_image_url="https://preview.ibb.co/c6f1F8/pat2.jpg"),
-                TextSendMessage(text='Breast has 620 ml with similarity ' + '%.2f' % percentage1 + ' %'),
-                ImageSendMessage(original_content_url="https://image.ibb.co/i3vCNo/test1.jpg",
-                             preview_image_url="https://image.ibb.co/i3vCNo/test1.jpg"),
-                TextSendMessage(text='Breast has xx ml with similarity ' + '%.2f' % percentage4 + ' %')
+                ImageSendMessage(original_content_url=imgurl[1],
+                                 preview_image_url=imgurl[1]),
         ])
     '''''''''''
     line_bot_api.reply_message(
