@@ -213,7 +213,7 @@ def handle_image_message(event):
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
                                  preview_image_url=imgurl[indexmin]),
-                TextSendMessage(text='Breast Volume is %d'+breast_vol[indexmin])
+                TextSendMessage(text='Breast Volume is %d'%breast_vol[indexmin])
         ])
     print(indexmin)
     '''''''''''
