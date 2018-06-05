@@ -215,6 +215,7 @@ def handle_image_message(event):
                                  preview_image_url=imgurl[indexmin]),
                 TextSendMessage(text='Breast Volume is %d'%breast_vol[indexmin])
         ])
+    print(minsim)
     print(indexmin)
     '''''''''''
     line_bot_api.reply_message(
