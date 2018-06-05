@@ -241,10 +241,10 @@ def handle_image_message(event):
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
                                  preview_image_url=imgurl[indexmin]),
-                TextSendMessage(text='Breast Volume is %d'%breast_vol[indexmin]),
+                TextSendMessage(text='Using Greyscale Hash Code, Breast Volume is %d'%breast_vol[indexmin]),
             ImageSendMessage(original_content_url=imgurl[indexsecond],
                              preview_image_url=imgurl[indexsecond]),
-            TextSendMessage(text='Breast Volume is %d' % breast_vol[indexsecond])
+            TextSendMessage(text='Using RGB Histogram, Breast Volume is %d' % breast_vol[indexsecond])
         ])
     print(similarity)
     print(minsim)
