@@ -204,13 +204,18 @@ def handle_image_message(event):
         similarity = []
         base_img = 'img-' + str(r + 1) + '.jpg'
         similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
+        minsim = min(similarity)
+        indexmin = similarity.index(minsim)
     print('3')
+
     line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
-                ImageSendMessage(original_content_url=imgurl[1],
-                                 preview_image_url=imgurl[1]),
+                ImageSendMessage(original_content_url=imgurl[indexmin],
+                                 preview_image_url=imgurl[indexmin]),
+                TextSendMessage(text='Breast Volume is %d'+breast_vol[indexmin])
         ])
+    print(indexmin)
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
