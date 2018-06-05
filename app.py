@@ -207,17 +207,23 @@ def handle_image_message(event):
     minsim = min(similarity)
     indexmin = similarity.index(minsim)
     print('3')
+    secondsim = min(n for n in similarity if n != minsim)
+    indexsecond = similarity.index(secondsim)
 
     line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
                                  preview_image_url=imgurl[indexmin]),
-                TextSendMessage(text='Breast Volume is %d'%breast_vol[indexmin])
+                TextSendMessage(text='Breast Volume is %d'%breast_vol[indexmin]),
+            ImageSendMessage(original_content_url=imgurl[indexsecond],
+                             preview_image_url=imgurl[indexsecond]),
+            TextSendMessage(text='Breast Volume is %d' % breast_vol[indexsecond])
         ])
     print(similarity)
     print(minsim)
     print(indexmin)
+    print(secondsim)
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
