@@ -9,6 +9,8 @@ import math
 from skimage import io, color
 import errno
 from PIL import Image
+from functools import reduce
+
 
 from colormath.color_objects import sRGBColor, LabColor
 from colormath.color_conversions import convert_color
@@ -135,7 +137,6 @@ def handle_text_message(event):
 
 @handler.add(MessageEvent, message=ImageMessage)
 def handle_image_message(event):
-
     message_content = line_bot_api.get_message_content(event.message.id)
     with NamedTemporaryFile(dir=static_tmp_path, prefix='img-', delete=False) as tf:
         for chunk in message_content.iter_content():
@@ -156,6 +157,26 @@ def handle_image_message(event):
               "https://preview.ibb.co/ctYNq8/img_26.jpg","https://preview.ibb.co/jVMmHo/img_27.jpg","https://preview.ibb.co/cWbaA8/img_28.jpg","https://preview.ibb.co/c27FA8/img_29.jpg","https://preview.ibb.co/kPR8V8/img_30.jpg"]
 
     breast_vol = [360,370,310,600,450,470,470,580,630,530,550,500,480,540,540,410,550,420,420,570,500,510,520,500,460,440,360,430,420,490]
+
+    def image_similarity_histogram_via_pil(filepath1, filepath2):
+        from PIL import Image
+        import math
+        import operator
+
+        image1 = Image.open(filepath1)
+        image2 = Image.open(filepath2)
+
+        image1 = get_thumbnail(image1)
+        image2 = get_thumbnail(image2)
+
+        h1 = image1.histogram()
+        h2 = image2.histogram()
+
+        rms = math.sqrt(reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, h1, h2))) / len(h1))
+        return rms
+
+
+
 
     def image_similarity_greyscale_hash_code(filepath1, filepath2):
         # source: http://blog.safariflow.com/2013/11/26/image-hashing-with-python/
@@ -201,14 +222,19 @@ def handle_image_message(event):
         return image
     print('2')
     similarity = []
+    similarity2 = []
     for r in range(30):
         base_img = 'img-' + str(r + 1) + '.jpg'
         similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
+        similarity2.append((image_similarity_histogram_via_pil(dist_path,base_img)))
+
     minsim = min(similarity)
     indexmin = similarity.index(minsim)
     print('3')
-    secondsim = min(n for n in similarity if n != minsim)
-    indexsecond = similarity.index(secondsim)
+    secondsim = min(similarity2)
+    indexsecond = similarity2.index(secondsim)
+    # secondsim = min(n for n in similarity if n != minsim)
+    # indexsecond = similarity.index(secondsim)
 
     line_bot_api.reply_message(
             event.reply_token, [
