@@ -157,31 +157,38 @@ def handle_image_message(event):
 
     breast_vol = [360,370,310,600,450,470,470,580,630,530,550,500,480,540,540,410,550,420,420,570,500,510,520,500,460,440,360,430,420,490]
 
-    def image_similarity_vectors_via_numpy(filepath1, filepath2):
-        # source: http://www.syntacticbayleaves.com/2008/12/03/determining-image-similarity/
-        # may throw: Value Error: matrices are not aligned .
-        from numpy import average, linalg, dot
+    def image_similarity_greyscale_hash_code(filepath1, filepath2):
+        # source: http://blog.safariflow.com/2013/11/26/image-hashing-with-python/
 
         image1 = Image.open(filepath1)
         image2 = Image.open(filepath2)
 
-        image1 = get_thumbnail(image1, stretch_to_fit=True)
-        image2 = get_thumbnail(image2, stretch_to_fit=True)
+        image1 = get_thumbnail(image1, greyscale=True)
+        image2 = get_thumbnail(image2, greyscale=True)
 
-        images = [image1, image2]
-        vectors = []
-        norms = []
-        for image in images:
-            vector = []
-            for pixel_tuple in image.getdata():
-                vector.append(average(pixel_tuple))
-            vectors.append(vector)
-            norms.append(linalg.norm(vector, 2))
-        a, b = vectors
-        a_norm, b_norm = norms
-        # ValueError: matrices are not aligned !
-        res = dot(a / a_norm, b / b_norm)
+        code1 = image_pixel_hash_code(image1)
+        code2 = image_pixel_hash_code(image2)
+        # use hamming distance to compare hashes
+        res = hamming_distance(code1, code2)
         return res
+
+    def image_pixel_hash_code(image):
+        pixels = list(image.getdata())
+        avg = sum(pixels) / len(pixels)
+        bits = "".join(map(lambda pixel: '1' if pixel < avg else '0', pixels))  # '00010100...'
+        hexadecimal = int(bits, 2).__format__('016x').upper()
+        return hexadecimal
+
+    def hamming_distance(s1, s2):
+        len1, len2 = len(s1), len(s2)
+        if len1 != len2:
+            "hamming distance works only for string of the same length, so i'll chop the longest sequence"
+            if len1 > len2:
+                s1 = s1[:-(len1 - len2)]
+            else:
+                s2 = s2[:-(len2 - len1)]
+        assert len(s1) == len(s2)
+        return sum([ch1 != ch2 for ch1, ch2 in zip(s1, s2)])
 
     def get_thumbnail(image, size=(128, 128), stretch_to_fit=False, greyscale=False):
         " get a smaller version of the image - makes comparison much faster/easier"
@@ -196,7 +203,7 @@ def handle_image_message(event):
     for r in range(30):
         similarity = []
         base_img = 'img-' + str(r + 1) + '.jpg'
-        similarity.append((image_similarity_vectors_via_numpy(dist_path,base_img)))
+        similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
     print('3')
     line_bot_api.reply_message(
             event.reply_token, [
