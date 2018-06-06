@@ -308,7 +308,6 @@ def handle_image_message(event):
     print(similarity)
     print(minsim)
     print(indexmin)
-    print(secondsim)
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
