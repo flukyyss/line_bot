@@ -219,32 +219,6 @@ def handle_image_message(event):
         hexadecimal = int(bits, 2).__format__('016x').upper()
         return hexadecimal
 
-    def image_similarity_vectors_via_numpy(filepath1, filepath2):
-        # source: http://www.syntacticbayleaves.com/2008/12/03/determining-image-similarity/
-        # may throw: Value Error: matrices are not aligned .
-        from numpy import average, linalg, dot
-        import sys
-
-        image1 = Image.open(filepath1)
-        image2 = Image.open(filepath2)
-
-        image1 = cropped_thumbnail(image1)
-        image2 = cropped_thumbnail(image2)
-
-        images = [image1, image2]
-        vectors = []
-        norms = []
-        for image in images:
-            vector = []
-            for pixel_tuple in image.getdata():
-                vector.append(average(pixel_tuple))
-            vectors.append(vector)
-            norms.append(linalg.norm(vector, 2))
-        a, b = vectors
-        a_norm, b_norm = norms
-        # ValueError: matrices are not aligned !
-        res = dot(a / a_norm, b / b_norm)
-        return res
 
     def hamming_distance(s1, s2):
         len1, len2 = len(s1), len(s2)
@@ -316,13 +290,11 @@ def handle_image_message(event):
     similarity0 = []
     similarity = []
     similarity2 = []
-    similarity3 = []
     for r in range(30):
         base_img = 'img-' + str(r + 1) + '.jpg'
         similarity0.append((image_similarity_bands_via_numpy(dist_path,base_img)))
         similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
         similarity2.append((image_similarity_histogram_via_pil(dist_path,base_img)))
-        similarity3.append((image_similarity_vectors_via_numpy(dist_path,base_img)))
 
     minsim0 = min(similarity0)
     indexmin0 = similarity0.index(minsim0)
@@ -331,8 +303,6 @@ def handle_image_message(event):
     print('3')
     secondsim = min(similarity2)
     indexsecond = similarity2.index(secondsim)
-    minsim3 = min(similarity3)
-    index3 = similarity3.index(minsim3)
     # secondsim = min(n for n in similarity if n != minsim)
     # indexsecond = similarity.index(secondsim)
 
@@ -341,15 +311,14 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
             event.reply_token, [
+                TextSendMessage(text='Using 1)Bands via Numpy'+'\n'+'2)Greyscale Hash Code'+'\n'+'3)RGB Histogram'),
                 ImageSendMessage(original_content_url=imgurl[indexmin0],
                                  preview_image_url=imgurl[indexmin0]),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
                                 preview_image_url=imgurl[indexmin]),
             ImageSendMessage(original_content_url=imgurl[indexsecond],
                              preview_image_url=imgurl[indexsecond]),
-            ImageSendMessage(original_content_url=imgurl[index3],
-                            preview_image_url=imgurl[index3]),
-            TextSendMessage(text='Respectively, Breast Volumes are %d , %d , %d, %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond],breast_vol[index3]))
+            TextSendMessage(text='Respectively, Breast Volumes are %d , %d , %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond]))
         ])
     print(similarity)
     '''''''''''
