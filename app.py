@@ -264,14 +264,14 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
             event.reply_token, [
-                TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
+                TextSendMessage(text='Using 1)Bands via Numpy'+'\n'+'2)Greyscale Hash Code'+'\n'+'3)RGB Histogram'),
                 ImageSendMessage(original_content_url=imgurl[indexmin0],
                                  preview_image_url=imgurl[indexmin0]),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
                                 preview_image_url=imgurl[indexmin]),
             ImageSendMessage(original_content_url=imgurl[indexsecond],
                              preview_image_url=imgurl[indexsecond]),
-            TextSendMessage(text='Using Bands via Numpy, Breast Volume is %d'+'\n'+'Using Greyscale Hash Code, Breast Volume is %d'+'\n'+'Using RGB Histogram, Breast Volume is %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond]))
+            TextSendMessage(text='Respectively, Breast Volumes are %d , %d , %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond]))
         ])
     print(similarity)
     print(minsim)
