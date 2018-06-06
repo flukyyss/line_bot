@@ -295,7 +295,6 @@ def handle_image_message(event):
 
     line_bot_api.reply_message(
             event.reply_token, [
-                # TextSendMessage(text='Using 1)Bands via Numpy'+'\n'+'2)Greyscale Hash Code'+'\n'+'3)RGB Histogram'),
                 ImageSendMessage(original_content_url=imgurl[indexmin0],
                                  preview_image_url=imgurl[indexmin0]),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
