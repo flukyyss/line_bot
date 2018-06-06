@@ -228,8 +228,8 @@ def handle_image_message(event):
         image1 = Image.open(filepath1)
         image2 = Image.open(filepath2)
 
-        image1 = get_thumbnail(image1, stretch_to_fit=True)
-        image2 = get_thumbnail(image2, stretch_to_fit=True)
+        image1 = get_thumbnail(image1)
+        image2 = get_thumbnail(image2)
 
         images = [image1, image2]
         vectors = []
