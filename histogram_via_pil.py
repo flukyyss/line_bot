@@ -33,7 +33,7 @@ def get_thumbnail(image, size=(128, 128), stretch_to_fit=False, greyscale=False)
 
 workbook = xlsxwriter.Workbook('histogram_via_pil.xlsx')
 worksheet = workbook.add_worksheet()
-for n in range(20):
+for n in range(40):
     for r in range(30):
         test = 'test-'+str(n+1)+'.jpg'
         img = 'img-'+str(r+1)+'.jpg'

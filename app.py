@@ -158,6 +158,25 @@ def handle_image_message(event):
 
     breast_vol = [360,370,310,600,450,470,470,580,630,530,550,500,480,540,540,410,550,420,420,570,500,510,520,500,460,440,360,430,420,490]
 
+    def image_similarity_bands_via_numpy(filepath1, filepath2):
+        import numpy
+        image1 = Image.open(filepath1)
+        image2 = Image.open(filepath2)
+
+        # create thumbnails - resize em
+        image1 = get_thumbnail(image1)
+        image2 = get_thumbnail(image2)
+
+        # this eliminated unqual images - though not so smarts....
+        if image1.size != image2.size or image1.getbands() != image2.getbands():
+            return -1
+        s = 0
+        for band_index, band in enumerate(image1.getbands()):
+            m1 = numpy.array([p[band_index] for p in image1.getdata()]).reshape(*image1.size)
+            m2 = numpy.array([p[band_index] for p in image2.getdata()]).reshape(*image2.size)
+            s += numpy.sum(numpy.abs(m1 - m2))
+        return s
+
     def image_similarity_histogram_via_pil(filepath1, filepath2):
         from PIL import Image
         import math
@@ -221,13 +240,17 @@ def handle_image_message(event):
             image = image.convert("L")  # Convert it to grayscale.
         return image
     print('2')
+    similarity0 = []
     similarity = []
     similarity2 = []
     for r in range(30):
         base_img = 'img-' + str(r + 1) + '.jpg'
+        similarity0.append((image_similarity_bands_via_numpy(dist_path,base_img)))
         similarity.append((image_similarity_greyscale_hash_code(dist_path,base_img)))
         similarity2.append((image_similarity_histogram_via_pil(dist_path,base_img)))
 
+    minsim0 = min(similarity0)
+    indexmin0 = similarity0.index(minsim0)
     minsim = min(similarity)
     indexmin = similarity.index(minsim)
     print('3')
@@ -236,15 +259,19 @@ def handle_image_message(event):
     # secondsim = min(n for n in similarity if n != minsim)
     # indexsecond = similarity.index(secondsim)
 
+
+
+
     line_bot_api.reply_message(
             event.reply_token, [
                 TextSendMessage(text='Image saved. '+request.host_url + os.path.join('static', 'tmp', dist_name)),
+                ImageSendMessage(original_content_url=imgurl[indexmin0],
+                                 preview_image_url=imgurl[indexmin0]),
                 ImageSendMessage(original_content_url=imgurl[indexmin],
-                                 preview_image_url=imgurl[indexmin]),
-                TextSendMessage(text='Using Greyscale Hash Code, Breast Volume is %d'%breast_vol[indexmin]),
+                                preview_image_url=imgurl[indexmin]),
             ImageSendMessage(original_content_url=imgurl[indexsecond],
                              preview_image_url=imgurl[indexsecond]),
-            TextSendMessage(text='Using RGB Histogram, Breast Volume is %d' % breast_vol[indexsecond])
+            TextSendMessage(text='Using Bands via Numpy, Breast Volume is %d'+'\n'+'Using Greyscale Hash Code, Breast Volume is %d'+'\n'+'Using RGB Histogram, Breast Volume is %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond]))
         ])
     print(similarity)
     print(minsim)
