@@ -306,7 +306,6 @@ def handle_image_message(event):
             TextSendMessage(text='Respectively, Breast Volumes are %d , %d , %d, %d'%(breast_vol[indexmin0],breast_vol[indexmin],breast_vol[indexsecond],breast_vol[index3]))
         ])
     print(similarity)
-    print(minsim)
     '''''''''''
     line_bot_api.reply_message(
         event.reply_token, [
