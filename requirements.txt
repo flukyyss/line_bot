@@ -15,7 +15,7 @@ urllib3==1.21.1
 
 Werkzeug==0.14.1
 click==6.7
-pip==9.0.3
+pip==21.1
 setuptools==39.0.1
 line-bot-sdk==1.1.0
 pycurl==7.43.0.1
